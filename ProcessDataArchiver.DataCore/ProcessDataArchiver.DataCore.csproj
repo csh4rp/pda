@@ -1,0 +1,191 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{ACE9EA05-6EB9-4794-A223-546F3BE4808D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ProcessDataArchiver.DataCore</RootNamespace>
+    <AssemblyName>ProcessDataArchiver.DataCore</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CPDev.Public">
+      <HintPath>C:\Program Files (x86)\CPDevFBD-1.1.3.26d\CPDev.Public.dll</HintPath>
+    </Reference>
+    <Reference Include="CPDev.SADlgForms">
+      <HintPath>C:\Program Files (x86)\CPDevFBD-1.1.3.26d\CPDev.SADlgForms.dll</HintPath>
+    </Reference>
+    <Reference Include="FirebirdSql.Data.FirebirdClient, Version=5.7.0.0, Culture=neutral, PublicKeyToken=3750abcc3150b00c, processorArchitecture=MSIL">
+      <HintPath>..\packages\FirebirdSql.Data.FirebirdClient.5.7.0\lib\net40-client\FirebirdSql.Data.FirebirdClient.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="GongShell, Version=0.6.0.31544, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\GongShell.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Outlook, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="MySql.Data, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.6.9.9\lib\net45\MySql.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Npgsql, Version=3.1.9.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Npgsql.3.1.9\lib\net45\Npgsql.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Oracle.ManagedDataAccess, Version=4.121.2.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL">
+      <HintPath>..\packages\Oracle.ManagedDataAccess.12.1.24160719\lib\net40\Oracle.ManagedDataAccess.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Windows" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="VMRuntimeClass">
+      <HintPath>..\VMRuntimeClass.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="Xceed.Wpf.AvalonDock.resources">
+      <HintPath>..\..\..\AvalonDock_2_0_2000\es\Xceed.Wpf.AvalonDock.resources.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Acquisition\ArchvieProjectInfo.cs" />
+    <Compile Include="Acquisition\IoServer.cs" />
+    <Compile Include="Database\CommandProviders\IExtendedCmdProvider.cs" />
+    <Compile Include="Database\CommandProviders\QueryOptions.cs" />
+    <Compile Include="Database\CommandProviders\SqlCondition.cs" />
+    <Compile Include="Database\DbProviders\ConnectionException.cs" />
+    <Compile Include="Database\DbProviders\DataTypeComparer.cs" />
+    <Compile Include="DbEntities\EntityChangesInfo.cs" />
+    <Compile Include="DbEntities\EntityChangeTracker.cs" />
+    <Compile Include="DbEntities\EntityCollection.cs" />
+    <Compile Include="DbEntities\EntityContext.cs" />
+    <Compile Include="DbEntities\EntityPair.cs" />
+    <Compile Include="DbEntities\EntityState.cs" />
+    <Compile Include="DbEntities\Events\EventActionFactory.cs" />
+    <Compile Include="DbEntities\GlobalVariable.cs" />
+    <Compile Include="DbEntities\TableEnums.cs" />
+    <Compile Include="DbEntities\Events\AnalogEvent.cs" />
+    <Compile Include="DbEntities\Events\IEvent.cs" />
+    <Compile Include="DbEntities\Events\CyclicEvent.cs" />
+    <Compile Include="DbEntities\Events\DiscreteEvent.cs" />
+    <Compile Include="DbEntities\Tags\AnalogTag.cs" />
+    <Compile Include="DbEntities\Tags\DiscreteTag.cs" />
+    <Compile Include="DbEntities\Tags\ITag.cs" />
+    <Compile Include="DbEntities\Tags\TagArchive.cs" />
+    <Compile Include="Database\CommandProviders\AccessCommandProvider.cs" />
+    <Compile Include="Database\CommandProviders\FirebirdCommandProvider.cs" />
+    <Compile Include="Database\CommandProviders\ICommandProvider.cs" />
+    <Compile Include="Database\CommandProviders\MySqlCommandProvider.cs" />
+    <Compile Include="Database\CommandProviders\OracleCommandProvider.cs" />
+    <Compile Include="Database\CommandProviders\PostgresCommandProvider.cs" />
+    <Compile Include="Database\CommandProviders\SqlServerCommandProvider.cs" />
+    <Compile Include="Database\DbProviders\AccessDatabaseProvider.cs" />
+    <Compile Include="Database\DbProviders\ConnectionSettings.cs" />
+    <Compile Include="Database\DbProviders\IDatabaseProvider.cs" />
+    <Compile Include="Database\DbProviders\DatabaseProviderFactory.cs" />
+    <Compile Include="Database\DbProviders\FirebirdDatabaseProvider.cs" />
+    <Compile Include="Database\DbProviders\MySqlDatabaseProvider.cs" />
+    <Compile Include="Database\DbProviders\OracleDatabaseProvider.cs" />
+    <Compile Include="Database\DbProviders\PostgresDatabaseProvider.cs" />
+    <Compile Include="Database\DbProviders\SqlServerDatabaseProvider.cs" />
+    <Compile Include="Database\DbProviders\OdbcProvider.cs" />
+    <Compile Include="Database\Schema\DatabaseType.cs" />
+    <Compile Include="Database\Schema\OdbcDataSourceInfo.cs" />
+    <Compile Include="Infrastructure\DataExportProvider.cs" />
+    <Compile Include="Infrastructure\EmailProvider.cs" />
+    <Compile Include="Infrastructure\FileHelper.cs" />
+    <Compile Include="Infrastructure\NetworkScanner.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Database\Schema\ColumnSchema.cs" />
+    <Compile Include="Database\Schema\DatabaseSchema.cs" />
+    <Compile Include="Database\Schema\TableSchema.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="ADODB">
+      <Guid>{2A75196C-D9EB-4129-B803-931327F72D5C}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>8</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="ADOX">
+      <Guid>{00000600-0000-0010-8000-00AA006D2EA4}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>8</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

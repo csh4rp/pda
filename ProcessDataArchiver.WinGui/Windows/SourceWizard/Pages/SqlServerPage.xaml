@@ -1,0 +1,241 @@
+﻿<Page x:Class="ProcessDataArchiver.WinGui.Windows.SourceWizard.Pages.SqlServerPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ProcessDataArchiver.WinGui.Windows.SourceWizard.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="600" d:DesignWidth="450"
+      Title="SqlServerPage">
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/GUIResources/WindowDictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+    <Grid Margin="0 10 0 0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="65"/>
+            <RowDefinition Height="133"/>
+            <RowDefinition Height="142"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Margin="0 10 0 0" >
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="26"/>
+                    <RowDefinition Height="26"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="42"/>
+                    </Grid.ColumnDefinitions>
+                <TextBlock Name="ServerTb" Text="Serwer" Style="{StaticResource GroupTextBlock}"/>
+
+                <ComboBox Name="ServerComboBox" Grid.Row="1"  Style="{StaticResource StandardComboBox}"
+                          SelectedIndex="0"
+                          IsEditable="True"
+                          Margin="10 2 0 2"
+                              ItemsSource="{Binding Path=Servers}"
+                              Text="{Binding ServerName, UpdateSourceTrigger=PropertyChanged}" 
+                              SelectedValue="{Binding Path=ServerName, 
+                              UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True}"                                                    
+                              DropDownOpened="ServerComboBox_DropDownOpened"
+                             />
+
+                <Button Name="RefreshServersButton" Grid.Row="1" Grid.Column="1" 
+                            Style="{StaticResource RefreshButton}"
+                            Width="20" Height="20"
+                            Click="RefreshServersBtn_Click">
+                    <Image Source="/Resources/Icons/refresh.png"/>
+                </Button>
+
+
+                </Grid>
+           
+        </Grid>
+
+        <Grid Grid.Row="1" Margin="0 8 0 0">
+            <GroupBox Name="LoginGroup" Header="Dane logowania" BorderBrush="LightGray">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="26"/>
+                        <RowDefinition Height="5"/>
+                        <RowDefinition Height="26"/>
+                        <RowDefinition Height="5"/>
+                        <RowDefinition Height="28"/>
+                        <RowDefinition Height="5"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+
+                    <TextBlock Name="AuthTb" Grid.Row="1" Text="Autoryzacja:" Style="{StaticResource GroupTextBlock}"/>
+                    <ComboBox Name="AuthCb" Grid.Row="1" Grid.Column="1" Style="{StaticResource StandardComboBox}"
+                              Margin="0 2 10 2"
+                              SelectedIndex="0" SelectionChanged="AuthCb_SelectionChanged">
+                        <ComboBoxItem Name="Windows">Windows</ComboBoxItem>
+                        <ComboBoxItem Name="SqlServer">SQL Server</ComboBoxItem>
+                    </ComboBox>
+
+
+
+
+                    <TextBlock Name="UserTb" Grid.Row="3" Text="Użytkownik:" 
+                               Margin="30 0 0 0"
+                               Style="{StaticResource GroupTextBlock}" Grid.ColumnSpan="2" 
+                               Foreground="Gray"
+                                />
+                    <TextBox Name="UserTextBox" Grid.Row="3" Grid.Column="2" Style="{StaticResource ValidTextBox}" 
+                           Text="{Binding Path=UserName,UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True}" 
+                           Margin="30 2 10 2"
+                           IsEnabled="False"/>
+
+                    <TextBlock Name="PassTb" Grid.Row="5" Text="Hasło:" Style="{StaticResource GroupTextBlock}"
+                               Grid.ColumnSpan="2" Margin="30 0 0 0"
+                               Foreground="Gray"
+                               />
+                    <Border Name="PassBorder" Grid.Row="5" Grid.Column="2" BorderThickness="1"
+                            
+                            Margin="29 2 9 2">
+                    <PasswordBox Name="PassBox" Grid.Row="5" Grid.Column="2" PasswordChanged="PasswordBox_PasswordChanged"
+                            Margin="0" 
+                                 IsEnabled="False">
+                        
+                    </PasswordBox>
+                    </Border>
+                </Grid>
+            </GroupBox>
+        </Grid>
+
+
+        <Grid Grid.Row="2" Margin="0 10 0 0">
+            <GroupBox Name="DbGroup" Header="Baza danych" BorderBrush="LightGray">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="26"/>
+                        <RowDefinition Height="5"/>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="26"/>
+                        <RowDefinition Height="5"/>
+
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="42"/>
+                    </Grid.ColumnDefinitions>
+
+                    <RadioButton Name="DbNameRadio" Grid.Row="1" GroupName="DbRadios" Margin="10 0 0 0"
+                                 VerticalAlignment="Center"
+                                 IsChecked="True"
+                                 Checked="Radio_Checked"
+                                 Content="Wybierz nazwę lub wpisz"/>
+                    <ComboBox Name="DatabaseCb"  Grid.Row="2"
+                              Style="{StaticResource GroupComboBox}"
+                              IsEditable="True" Margin="30 0 10 0"
+                              ItemsSource="{Binding Path=Databases}"
+                              Text="{Binding DatabaseName}" DropDownOpened="DatabaseCb_DropDownOpened"
+                              SelectedValue="{Binding Path=DatabaseName,  ValidatesOnExceptions=True, 
+                              ValidatesOnDataErrors=True,ValidatesOnNotifyDataErrors=True,
+                              UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True}"
+                              >
+                    </ComboBox>
+                    <Button Name="DbListRefreshButton" Grid.Row="2" Grid.Column="1" Height="20" Width="20"
+                            Style="{StaticResource RefreshButton}"
+                            Click="DbListRefreshBtn_Click">
+
+                    </Button>
+
+
+                   
+                    <RadioButton Name="ExistingDbRadio" Grid.Row="4" GroupName="DbRadios" Margin="10 0 0 0"
+                                 VerticalAlignment="Center"
+                                 Checked="Radio_Checked"
+                                 Content="Załącz bazę danych z pliku"/>
+                    <TextBox Grid.Row="5" Name="ExiDbPathTextBox" Margin="30 0 10 0"
+                             Text="{Binding Path=DbPath,UpdateSourceTrigger=PropertyChanged,
+                             ValidatesOnNotifyDataErrors=True}"
+                             IsEnabled="False"
+                             Style="{StaticResource GroupTextBox}"/>
+                    <Button Name="ExiDbBrowseButton" Grid.Row="5" Grid.Column="1" 
+                            Width="20" Height="20"
+                            Click="ExiDbBrowseButton_Click"
+                            IsEnabled="False"
+                            Style="{StaticResource BrowseButton}"/>
+
+                </Grid>
+            </GroupBox>
+        </Grid>
+
+
+        
+        
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="120"/>
+            </Grid.ColumnDefinitions>
+
+                <Button Name="TestButton" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Right"
+                        Margin="10 10 10 10" Width="80"
+               Content="Testuj"  Style="{StaticResource StdFormNextBtn}" Click="TestButton_Click"/>
+
+
+            <ListBox  Background="Transparent"  BorderBrush="Transparent"
+                     >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Height="22">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="22"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                      
+                            <Image Source="/Resources/Icons/attention.png" /> 
+                            <TextBlock VerticalAlignment="Center" Grid.Column="1" Foreground="Red" 
+                                       Text="{Binding Path=Message}"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                <ListBox.Resources>
+                    <Style TargetType="{x:Type ListBoxItem}">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                    <Border x:Name="Bd"
+                                            BorderBrush="Transparent"
+                            SnapsToDevicePixels="true">
+                                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                    <Style TargetType="{x:Type ListBox}">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListBox">
+
+                                    <StackPanel VerticalAlignment="Bottom" Margin="2" IsItemsHost="True"/>
+
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListBox.Resources>
+            </ListBox>
+        </Grid>
+        
+
+    </Grid>
+</Page>

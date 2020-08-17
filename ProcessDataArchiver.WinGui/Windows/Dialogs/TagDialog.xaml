@@ -1,0 +1,144 @@
+﻿<Window x:Class="ProcessDataArchiver.WinGui.Windows.Dialogs.TagDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProcessDataArchiver.WinGui.Windows.Dialogs"
+        mc:Ignorable="d"
+        Title="Edytuj Znacznik" Height="430" Width="450" MaxHeight="430"
+        MinHeight="430" MaxWidth="450" MinWidth="450">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/GUIResources/WindowDictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid Background="#f8f8f8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="180"/>
+            <RowDefinition Height="165"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Margin="10 10 10 0">
+            <GroupBox Header="Ogólne" BorderBrush="LightGray">
+                <Grid Margin="10 0 10 0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="26"/>
+                        <RowDefinition Height="5"/>
+                        <RowDefinition Height="26"/>
+                        <RowDefinition Height="5"/>
+                        <RowDefinition Height="26"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="5"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="110"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="35"/>
+                    </Grid.ColumnDefinitions>
+
+
+                    <TextBlock Grid.Row="1" Text="Nazwa:" VerticalAlignment="Center"/>
+                    <TextBox Grid.Row="1" Grid.Column="1" VerticalAlignment="Stretch"
+                             Margin="10 2 10 2"
+                             Style="{StaticResource ValidTextBox}"
+                             Text="{Binding Path=TagName, ValidatesOnDataErrors=true, ValidatesOnNotifyDataErrors=True}"
+                             />
+                    <TextBlock Grid.Row="3" Text="Zmienna Globalna:" VerticalAlignment="Center"/>
+                    <TextBox Grid.Row="3" Grid.Column="1" 
+                             Style="{StaticResource GroupTextBox}"
+                             IsReadOnly="True" Text="{Binding Path=GvName}"/>
+                    <Button Name="BrowseGvrs" Grid.Row="3" Grid.Column="2" Width="20" Height="20" Content="..."
+                            Click="BrowseGvrs_Click"
+                            Style="{StaticResource BrowseButton}"/>
+
+                    <TextBlock Grid.Row="5" Text="Komenatrz:" VerticalAlignment="Center"/>
+                    <ScrollViewer Grid.ColumnSpan="3" Grid.Row="6">
+                    <TextBox Grid.ColumnSpan="3" Grid.Row="5" TextWrapping="Wrap" AcceptsReturn="True"
+                             Text="{Binding Path=Comment}"/>
+                    </ScrollViewer>
+                </Grid>
+            </GroupBox>
+        </Grid>
+
+        <Grid Grid.Row="1" Margin="10 10 10 0">
+            <GroupBox Header="Archiwizacja" BorderBrush="LightGray">
+                <Grid Margin="10 0 10 0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="26"/>
+                        <RowDefinition Height="5"/>
+                        <RowDefinition Height="26"/>
+                        <RowDefinition Height="5"/>
+                        <RowDefinition Height="26"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="5"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="110"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="90"/>
+                    </Grid.ColumnDefinitions>
+
+
+                    <TextBlock Grid.Row="1" Text="Typ Archiwizacji:" VerticalAlignment="Center"/>
+                    <ComboBox Name="ArchTypeCb"  Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1" SelectedIndex="0"
+                              Style="{StaticResource GroupComboBox}" SelectionChanged="ArchTypeCb_SelectionChanged">
+                        <ComboBoxItem Name="Disabled">Nie Archiwizowany</ComboBoxItem>
+                        <ComboBoxItem Name="Cyclic">Cykliczna</ComboBoxItem>
+                        <ComboBoxItem Name="Acyclic">Acykliczna</ComboBoxItem>
+                    </ComboBox>
+
+                    <TextBlock Name="CycleTb" Grid.Row="3" Text="Cykl:" VerticalAlignment="Center" HorizontalAlignment="Right" 
+                               Margin="0,5" Width="110"/>
+                    <ComboBox Name="CycleCb" Grid.Row="3" Grid.Column="1"  Grid.ColumnSpan="1"
+                              Style="{StaticResource GroupComboBox}"
+                              MaxDropDownHeight="150"
+                              SelectedItem="{Binding Path=SelectedCycle}"
+                              DisplayMemberPath="Key"
+                              ItemsSource="{Binding Path=CycleTimes}">
+                    </ComboBox>
+
+                    <TextBlock Name="HisteresisTb" Grid.Row="5" Text="Histereza:" VerticalAlignment="Center"/>
+                    <TextBox Name="HisteresisTextBox" Grid.Row="5" Grid.Column="1" 
+                             Text="{Binding Path=Histeresis}"
+                             Style="{StaticResource GroupTextBox}"/>
+                    <Grid Grid.Row="5" Grid.Column="3" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="40"/>
+                            <ColumnDefinition Width="50"/>
+                        </Grid.ColumnDefinitions>
+                        <RadioButton Name="PercentageRadio"  Grid.Column="0" GroupName="UnitGroup" VerticalAlignment="Center"
+                                      IsChecked="True"
+                         HorizontalAlignment="Left"     Margin="5 0 0 0"   Content="%"/>
+                        <RadioButton Name="AbsRadio"  Grid.Column="1" GroupName="UnitGroup" VerticalAlignment="Center"
+                         HorizontalAlignment="Left"  Margin="0 0 5 0"      Content="Abs."/>
+                    </Grid>
+                    <TextBlock Name="UnitTb" Grid.Row="6" Text="Jednostka:" VerticalAlignment="Center"/>
+                    <TextBox Name="UnitTextBox" Grid.Row="6" Grid.Column="1" 
+                             Style="{StaticResource GroupTextBox}"
+                             Text="{Binding Path=EUnit}"/>
+                </Grid>
+            </GroupBox>
+        </Grid>
+
+
+        <Grid Grid.Row="3">
+            <Button Name="FinishButton" Style="{StaticResource StdFormNextBtn}"
+                     Click="FinishButton_Click"
+                    Content="Zastosuj"/>
+            <Button Style="{StaticResource StdFormCancelBtn}"
+                    Name="CancelButton"
+                    Click="CancelButton_Click"
+                    Content="Anuluj"/>
+        </Grid>
+
+
+
+    </Grid>
+</Window>

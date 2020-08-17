@@ -1,0 +1,52 @@
+﻿<Page x:Class="ProcessDataArchiver.WinGui.Windows.SourceWizard.Pages.DatabasePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ProcessDataArchiver.WinGui.Windows.SourceWizard.Pages"
+      xmlns:sys="clr-namespace:System;assembly=mscorlib"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300"
+      Title="DatabasePage">
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/GUIResources/WindowDictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="55"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+            <Grid Grid.Row="0">
+            
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.7*"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="DBMS" Margin="10 5 0 0"/>
+            <ComboBox  Grid.Row="1" Name="DbTypeCb"  SelectedIndex="1" 
+
+                       Margin="10 5 10 5" Height="22"
+                      Style="{StaticResource StandardComboBox}"
+                          SelectionChanged="DbTypeCb_SelectionChanged">
+                    <sys:String>MS Access</sys:String>
+                    <sys:String>SQL Server</sys:String>
+                    <sys:String>Oracle</sys:String>
+                    <sys:String>Firebird</sys:String>
+                    <sys:String>PostgreSQL</sys:String>
+                    <sys:String>MySQL</sys:String>
+                    <sys:String>ODBC</sys:String>
+                </ComboBox>
+           
+        </Grid>
+       
+        <Grid Grid.Row="1">
+            <Frame Name="DbContentFrame" NavigationUIVisibility="Hidden"></Frame>
+        </Grid>
+        
+    </Grid>
+</Page>

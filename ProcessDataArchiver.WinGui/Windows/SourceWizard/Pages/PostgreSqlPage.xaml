@@ -1,0 +1,199 @@
+﻿<Page x:Class="ProcessDataArchiver.WinGui.Windows.SourceWizard.Pages.PostgreSqlPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ProcessDataArchiver.WinGui.Windows.SourceWizard.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="600" d:DesignWidth="450"
+      Title="PostgreSqlPage">
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/GUIResources/WindowDictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid Margin="0 10 0 0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="102"/>
+            <RowDefinition Height="104"/>
+            <RowDefinition Height="65"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+
+        <Grid Grid.Row="0" Margin="0 10 0 0">
+            <GroupBox Name="ConnectGroup" Header="Dane połączenia" BorderBrush="LightGray">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="26"/>
+                        <RowDefinition Height="5"/>
+                        <RowDefinition Height="26"/>
+
+                        <RowDefinition Height="5"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="42"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Row="1" Text="Serwer:" Style="{StaticResource GroupTextBlock}"/>
+                    <ComboBox Name="ServerCb" Grid.Row="1" Grid.Column="1" Style="{StaticResource GroupComboBox}"
+                              IsEditable="true" 
+                              Text="{Binding ServerName, UpdateSourceTrigger=PropertyChanged}"
+                              ItemsSource="{Binding Path=Servers}"
+                              SelectedValue="{Binding Path=ServerName,  ValidatesOnExceptions=True, 
+                              ValidatesOnDataErrors=True, ValidatesOnNotifyDataErrors=True,
+                              UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True}"                      
+                              
+                              DropDownOpened="ServerComboBox_DropDownOpened"/>
+                    <Button Name="RefreshServerButton" Grid.Row="1" Grid.Column="4" Click="RefreshServersBtn_Click"
+                            Width="20" Height="20" Margin="10,2">
+                        <Image Source="/Resources/Icons/refresh.png"/>
+                    </Button>
+
+                    <TextBlock Grid.Row="3" Text="Port:" Style="{StaticResource GroupTextBlock}"/>
+                    <TextBox Name="PortTextBox" Grid.Row="3" Grid.Column="1" Margin="10 2"
+                             Style="{StaticResource StandardTextBox}"
+                        Text="{Binding Path=Port, ValidatesOnExceptions=True, ValidatesOnDataErrors=True,
+                        ValidatesOnNotifyDataErrors=True,
+                  UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True}"     
+                             />
+                </Grid>
+            </GroupBox>
+        </Grid>
+
+        <Grid Grid.Row="1" Margin="0 10 0 0">
+            <GroupBox Name="LoginGroup" Header="Dane logowania" BorderBrush="LightGray"
+                      >
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="26"/>
+                        <RowDefinition Height="5"/>
+                        <RowDefinition Height="26"/>
+                        <RowDefinition Height="5"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="60.225"/>
+                        <ColumnDefinition Width="59.775"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Name="UserTb" Grid.Row="1" Text="Użytkownik:" Style="{StaticResource GroupTextBlock}" Grid.ColumnSpan="2" Margin="10,5"
+                                />
+                    <TextBox Name="UserTextBox" Grid.Row="1" Grid.Column="2" 
+                             Style="{StaticResource ValidTextBox}" Margin="10 2"
+                           Text="{Binding Path=UserName, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True}" 
+                             />
+
+                    <TextBlock Name="PassTb" Grid.Row="3" Text="Hasło:" Style="{StaticResource GroupTextBlock}" Grid.ColumnSpan="2" Margin="10,5"
+                               />
+                    <Border Name="PassBor" Grid.Column="2" Grid.Row="3" BorderThickness="1"
+                            BorderBrush="Transparent" Margin="10 2 10 2">
+                    <PasswordBox Name="PasswordBox" Grid.Row="3" Grid.Column="2" 
+                                 PasswordChanged="PasswordBox_PasswordChanged"/>
+                    </Border>
+                </Grid>
+            </GroupBox>
+        </Grid>
+
+        <Grid Grid.Row="2" Margin="0 10 0 0">
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="42"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Row="0" Text="Baza danych (nowa lub istniejąca):" Style="{StaticResource GroupTextBlock}"/>
+                <ComboBox Name="DatabaseCb" Grid.Row="1" Grid.Column="0" Style="{StaticResource GroupComboBox}"
+                              IsEditable="True"
+                              ItemsSource="{Binding Path=Databases}"
+                              Text="{Binding DatabaseName}" DropDownOpened="DatabaseCb_DropDownOpened"
+                              SelectedValue="{Binding Path=DatabaseName,  ValidatesOnExceptions=True, ValidatesOnDataErrors=True,
+                  UpdateSourceTrigger=PropertyChanged,ValidatesOnNotifyDataErrors=True,  NotifyOnValidationError=True}"
+                              SelectionChanged="DatabaseCb_SelectionChanged">
+                </ComboBox>
+                <Button Name="RefreshDbButton" Grid.Row="1" Grid.Column="4" Click="RefreshDbBtn_Click"
+                            Width="20" Height="20" Margin="10,2">
+                    <Image Source="/Resources/Icons/refresh.png"/>
+                </Button>
+            </Grid>
+
+        </Grid>
+
+
+
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="120"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Name="TestButton" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Right"
+                        Margin="10 10 10 10"
+               Content="Testuj"  Style="{StaticResource StdFormNextBtn}" Click="TestButton_Click"/>
+
+            <ListBox Visibility="Hidden" ItemsSource="{Binding ErrorsList}" Background="Transparent"  BorderBrush="Transparent"
+                     >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="22"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Image Source="/Resources/Icons/attention.png" />
+                            <TextBlock Grid.Column="1" Foreground="Red" Text="{Binding Path=Message}"
+                                       VerticalAlignment="Center"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                <ListBox.Resources>
+                    <Style TargetType="{x:Type ListBoxItem}">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                    <Border x:Name="Bd"
+                                            BorderBrush="Transparent"
+                            SnapsToDevicePixels="true">
+                                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                    <Style TargetType="{x:Type ListBox}">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListBox">
+
+                                    <StackPanel VerticalAlignment="Bottom" Margin="2" IsItemsHost="True"/>
+
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListBox.Resources>
+            </ListBox>
+        </Grid>
+
+
+
+
+
+
+
+    </Grid>
+</Page>

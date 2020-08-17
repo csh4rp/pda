@@ -1,0 +1,152 @@
+﻿<Window x:Class="ProcessDataArchiver.WinGui.Windows.Dialogs.PlotOptionsDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProcessDataArchiver.WinGui.Windows.Dialogs"
+        xmlns:wp="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+        mc:Ignorable="d"
+        Title="AdvancedPlotOptionsDialog" Height="500" Width="400">
+    <Grid Background="#f1f1f1">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="160"/>
+            <RowDefinition Height="110"/>
+            <RowDefinition/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+
+        
+            <GroupBox Header="Ustawienia Podziałek" BorderBrush="LightGray" Margin="10">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="26"/>
+                    <RowDefinition Height="26"/>
+                    <RowDefinition Height="26"/>
+                    <RowDefinition Height="26"/>
+                    <RowDefinition Height="26"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="230"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Row="1" Text="Liczba głównych podziałek na osi X:"
+                           Margin="10 0 0 0" VerticalAlignment="Center"/>
+                <wp:IntegerUpDown Name="XaxisMajorGrids" Grid.Row="1" Grid.Column="1"
+                                  Text="{Binding Path=XaxisMajorGridLines}"
+                                  Margin="10 3 10 3" VerticalAlignment="Center"/>
+                
+                <TextBlock Grid.Row="2" Text="Liczba głównych podziałek na osi Y:"
+                           Margin="10 0 0 0" VerticalAlignment="Center"/>
+                <wp:IntegerUpDown Name="YaxisMajorGrids" Grid.Row="2" Grid.Column="1"
+                                  Text="{Binding Path=YaxisMajorGridLines}"
+                                  Margin="10 3 10 3" VerticalAlignment="Center"/>
+
+                <TextBlock Grid.Row="3" Text="Liczba dodatkowych podziałek na osi X:"
+                            
+                           Margin="10 0 0 0" VerticalAlignment="Center"/>
+                <wp:IntegerUpDown Name="XaxisMinorGrids" Grid.Row="3" Grid.Column="1"
+                                  Text="{Binding Path=XaxisMinorGridLines}"
+                                  Margin="10 3 10 3" VerticalAlignment="Center"/>
+
+
+
+                <TextBlock Grid.Row="4" Text="Liczba dodatkowych podziałek na osi Y:"
+                           Margin="10 0 0 0" VerticalAlignment="Center"/>
+                <wp:IntegerUpDown Name="YaxisMinorGrids" Grid.Row="4" Grid.Column="1"
+                                  Text="{Binding Path=YaxisMinorGridLines}"
+                                  Margin="10 3 10 3" VerticalAlignment="Center"/>
+
+            </Grid>
+            </GroupBox>
+
+
+        <GroupBox Grid.Row="1" Header="Ustawienia kolorów" Margin="10"
+                  BorderBrush="LightGray">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="28"/>
+                    <RowDefinition Height="28"/>
+                    <RowDefinition Height="5"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="230"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Row="1" Text="Kolor wykresu:"
+                           Margin="10 0 0 0" VerticalAlignment="Center"/>
+
+                <wp:ColorPicker Grid.Column="1" Grid.Row="1" Name="PlotColorPicker"
+                                VerticalAlignment="Center" Margin="10 3 10 3"
+                                SelectedColor="{Binding Path=PlotColor}"
+                                />
+
+                <TextBlock Grid.Row="2" Text="Kolor podziałek:"
+                           Margin="10 0 0 0" VerticalAlignment="Center"/>
+                <wp:ColorPicker Grid.Column="1" Grid.Row="2" Name="GridColorPicker"
+                                SelectedColor="{Binding GridLinesColor}"
+                                VerticalAlignment="Center" Margin="10 3 10 3"
+                                />
+
+            </Grid>
+        </GroupBox>
+        
+        <GroupBox Grid.Row="2" Header="Ustawienia wartości" Margin="10"
+                  BorderBrush="LightGray">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="28"/>
+                    <RowDefinition Height="28"/>
+                    <RowDefinition Height="28"/>
+                    <RowDefinition Height="5"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="230"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Row="1" Text="Czas odświeżania wykresu (ms):"
+                           Margin="10 0 0 0" VerticalAlignment="Center"/>
+
+                <wp:IntegerUpDown Name="RefreshSpanUpDown" Grid.Row="1" Grid.Column="1"
+                                  Text="{Binding Path=RefreshSpanMs}"
+                                  VerticalAlignment="Center" Margin="10 2 10 2"/>
+
+                <TextBlock Grid.Row="2" Text="Maksymalna wartość:"
+                           Margin="10 0 0 0" VerticalAlignment="Center"/>
+                <wp:DoubleUpDown Name="MaxValUpDown" Grid.Row="2" Grid.Column="1"
+                                 Text="{Binding Path=MaxValue}"
+                                  VerticalAlignment="Center" Margin="10 2 10 2"/>
+                
+                <TextBlock Grid.Row="3" Text="Minimalna wartość:"
+                           Margin="10 0 0 0" VerticalAlignment="Center"/>
+                <wp:DoubleUpDown Name="MinValUpDown" Grid.Row="3" Grid.Column="1"
+                                 Text="{Binding Path=MinValue}"
+                                  VerticalAlignment="Center" Margin="10 2 10 2"/>
+            </Grid>
+        </GroupBox>
+
+
+        <Border Grid.Row="3" BorderThickness="0 1 0 0" BorderBrush="Gray">
+            <Grid>
+            <Button Name="ApplyButton" Content="Zastosuj"
+                    Click="ApplyButton_Click"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Right" Width="80" Margin="10"/>
+            <Button Name="CancelButton"
+                    Click="CancelButton_Click"
+                Content="Anuluj" VerticalAlignment="Center"
+                    HorizontalAlignment="Right" Width="80" Margin="0 10 100 10"/>
+            </Grid>
+        </Border>
+        
+        
+    </Grid>
+</Window>

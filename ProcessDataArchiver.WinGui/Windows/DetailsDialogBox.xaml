@@ -1,0 +1,97 @@
+﻿<Window x:Class="ProcessDataArchiver.WinGui.Dialogs.DetailsDialogBox"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProcessDataArchiver.WinGui.Dialogs"
+        xmlns:con="clr-namespace:ProcessDataArchiver.WinGui.Resources.GUIResources"
+        mc:Ignorable="d"
+        Title="DetailsDialogBox" Height="180" Width="420"
+        ResizeMode="NoResize">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/GUIResources/WindowDictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="95"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="3.5*"/>
+            </Grid.ColumnDefinitions>
+            <Image Name="ErrorImg" Margin="25 15 5 15" Grid.Column="0" Source="/Resources/Icons/error-icon.png"/>
+            <Image Name="ApplyImg" Margin="25 15 5 15" Grid.Column="0" Visibility="Hidden"
+                   Source="/Resources/Icons/apply.png"/>
+            <con:LoadingIndicator x:Name="Indicator" Style="{StaticResource LoadingIndicatorArcsRingStyleKey}"
+                                  Margin="25 15 5 15"
+                                  IsActive="False"/>
+            <TextBlock Grid.Column="1" Margin="40,30,20,10" 
+                       
+                     Name="MessageTextBlock"                  
+                     Foreground="Black"
+                     TextWrapping="Wrap"
+                       Text="{Binding Message}">
+
+            </TextBlock>
+
+        </Grid>
+
+        <Grid Grid.Row="1" Background="#f1f1f1">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="3" Name="OkButton" Content="OK"
+                    Style="{StaticResource StdFormNextBtn}"
+                    Click="Dismiss"
+                    />
+            <Button Grid.Column="2" Name="CancelButton" Content="Anuluj"
+                    Style="{StaticResource StdFormCancelBtn}"
+                    HorizontalAlignment="Right"
+                    Click="CancelButton_Click"
+                    />
+
+            <Button Grid.Column="0" Name="DetailsButton"
+                    Width="80" HorizontalAlignment="Left" Margin="10 10 10 10"
+                    Height="22"
+                    Click="DetailsButton_Click"
+                    >
+                <Button.Content>
+                    <Grid>
+                        <Polygon Points="-5,5 -1,10 3,5" Stroke="Black" Fill="Black"
+                                     Name="ExpandPolygon"/>
+                        <Polygon Points="-5,10 -1,5 3,10" Stroke="Transparent" Fill="Transparent"
+                                 Name="ExpandedPolygon"/>
+                        <TextBlock Margin="15,0,0,0" Text="Detale" />
+
+                    </Grid>
+                </Button.Content>
+            </Button>
+            
+        </Grid>
+
+        <Grid Name="DetailsGrid"  Grid.Row="2" Background="#f1f1f1">
+            <Border Margin="5"  BorderThickness="1">
+                <ScrollViewer>
+                <TextBlock Name="DetailsTextBlock"
+                           Text="{Binding Details}"
+                           TextWrapping="Wrap"
+                           />
+                </ScrollViewer>
+            </Border>
+        </Grid>
+        
+
+    </Grid>
+</Window>

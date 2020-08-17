@@ -1,0 +1,263 @@
+﻿<UserControl x:Class="ProcessDataArchiver.WinGui.Windows.DockingControls.QueryControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:wp="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+             xmlns:local="clr-namespace:ProcessDataArchiver.WinGui.Windows.DockingControls"
+             xmlns:conv="clr-namespace:ProcessDataArchiver.WinGui.Resources.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="630">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/GUIResources/WindowDictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <conv:EnumConverter x:Key="eConv"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid Background="#f4f4f4">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="29"/>
+            <RowDefinition Height="0.7*"/>
+            <RowDefinition Height="5"/>
+            <RowDefinition/>
+            <RowDefinition Height="24"/>
+        </Grid.RowDefinitions>
+
+        <ToolBarTray Background="#f4f4f4">
+            <ToolBar Name="QueryToolBar" Grid.Column="1" 
+                         Height="29"
+                         Background="#f1f1f1">
+
+                <Button Name="LoadQueryButton" Click="LoadQueryButton_Click"
+                            Style="{StaticResource OpenScriptButton}"/>
+                <Button Name="SaveQueryButton" Click="SaveQueryButton_Click"
+                                Style="{StaticResource SaveScriptButton}"/>
+                <Separator/>
+                <Button Name="RunQueryButton" Style="{StaticResource RunQueryButton}" Click="RunQueryButton_Click"/>
+                <Separator/>
+            <Button Name="StopQueryButton" Style="{StaticResource StopQueryButton}" IsEnabled="False"
+                    Click="StopQueryButton_Click"/>
+            <Separator/>
+            <Button Style="{StaticResource AddButton}" Click="AddButton_Click"/>
+                <Button Name="RemoveBtn" Style="{StaticResource RemoveButton}" IsEnabled="False"
+                        Click="RemoveButton_Click"/>
+                <Separator/>
+                <ComboBox Name="TableSelectCb" Width="120"
+                                  SelectionChanged="Cb_SelectionChanged"
+                                  ItemsSource="{Binding}"
+                                  SelectedIndex="0"
+                                  />
+                <Separator/>
+                <Button Name="ExportButton" Style="{StaticResource UploadButton}"
+                        IsEnabled="False"
+                        Click="ExportButton_Click"
+                        />
+
+
+
+            </ToolBar>
+        </ToolBarTray>
+
+
+
+
+        <Grid Grid.Row="1">
+
+
+            
+
+            <Grid Grid.Row="2">
+                <ListView Name="QueryListView" Margin="10"
+                          SelectionChanged="QueryListView_SelectionChanged"
+                          ItemsSource="{Binding Path=QueryParameters}">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListViewItem}">
+                         <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                          <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.Resources>
+                        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent"/>
+                        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" 
+                                 Color="Black"/>
+                    </ListView.Resources>
+                    <ListView.View>
+                        <GridView>
+
+
+                            <GridViewColumn Header="Kolumna" Width="100">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <ComboBox Name="ColumnCb" 
+                                                 Style="{StaticResource CustomNonEditCb}"
+                                                  SelectedItem="{Binding Path=ColumnName}"
+                                                  ItemsSource="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.ColumnNames}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+
+                            <GridViewColumn Header="Pokaż" Width="80">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox Name="SelectCheckBox" 
+                                                  VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center"
+                                                  IsChecked="{Binding Selected}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+
+
+                            <GridViewColumn Header="Agregacja" Width="100">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <ComboBox Name="AggregateCb" 
+                                                  Style="{StaticResource CustomNonEditCb}"
+                                                  SelectedItem="{Binding AggregateType}"
+                                                  ItemsSource="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type UserControl}},Path=DataContext.AggregateTypes, Converter={StaticResource eConv}}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+
+                            <GridViewColumn Header="Sortowanie" Width="100">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <ComboBox Name="SortCb" HorizontalAlignment="Stretch"
+                                                  Style="{StaticResource CustomNonEditCb}"
+                                                  SelectedItem="{Binding SortType}"
+                                                  ItemsSource="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.SortTypes}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+
+                            <GridViewColumn Header="Kryterium" Width="100">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBox Name="AndCriteriaTextBox"
+                                                 Style="{StaticResource ListBoxTextBox}"
+                                                 Text="{Binding AndCriteria}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+
+                            <GridViewColumn Header="Lub" Width="100">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBox Name="OrCriteriaTextBox" 
+                                                 Style="{StaticResource ListBoxTextBox}"
+                                                 Text="{Binding OrCriteria}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+
+
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
+
+
+        </Grid>
+
+        <GridSplitter Grid.Row="2" HorizontalAlignment="Stretch" Background="LightGray"/>
+
+        <Grid Grid.Row="3">
+            <DataGrid Name="QueryDataGrid" Margin="10"
+                              ItemsSource="{Binding Path=QueryResult}"
+                              IsReadOnly="True" GridLinesVisibility="None">
+                <DataGrid.ItemContainerStyle>
+                    <Style TargetType="{x:Type DataGridRow}">
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="#5f97ef"/>
+                            </Trigger>
+                        </Style.Triggers>
+
+                    </Style>
+                </DataGrid.ItemContainerStyle>
+                <DataGrid.CellStyle>
+                    <Style TargetType="DataGridCell">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="DataGridCell">
+                                    <Border BorderThickness="0 0 0.5 0.5" BorderBrush="LightGray">
+                                        <ContentPresenter/>
+                                    </Border>
+                                </ControlTemplate>
+
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="Background" Value="Blue"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.CellStyle>
+
+            </DataGrid>
+        </Grid>
+
+        
+
+        
+        <Grid Grid.Row="4">
+            <Border BorderBrush="Gray" BorderThickness="0 1 0 0">
+
+                <Grid Background="#f1f1f1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="22"/>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="60"/>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="10"/>
+                    </Grid.ColumnDefinitions>
+                    <Border Grid.Column="1" BorderThickness="1 0 1 0" BorderBrush="LightGray">
+                        <Grid>
+                            <Image Source="/Resources/Icons/ok.png" Name="OkImg"
+                                           VerticalAlignment="Center"
+                                           Grid.Column="1" Margin="2"
+                                           Visibility="Hidden"/>
+                            <Image Source="/Resources/Icons/warning.png" Name="WarnImg"
+                                           VerticalAlignment="Center"
+                                           Grid.Column="1" Margin="1"
+                                           Visibility="Hidden"/>
+                            <Image Source="/Resources/Icons/database_connect.png" Name="DbConImg"
+                                           VerticalAlignment="Center"
+                                           Grid.Column="1" Margin="1"
+                                           Visibility="Visible"/>
+                            <Image Source="/Resources/Icons/database_error.png" Name="DbErrImg"
+                                           VerticalAlignment="Center"
+                                           Grid.Column="1" Margin="1"
+                                           Visibility="Hidden"/>
+                        </Grid>
+                    </Border>
+                    <TextBlock Name="StatusTb" Margin="10 0 0 0" Grid.Column="2"
+                                           Text="Połączono"
+                                               VerticalAlignment="Center"/>
+                    <Border BorderThickness="1 0 0 0" BorderBrush="LightGray" Grid.Column="4">
+                        <TextBlock Name="TimeElapsedTb" Margin="5 0 5 0"
+                                               Text="{Binding ElapsedTime,StringFormat={}{0:hh}:{0:mm}:{0:ss}}"
+                                               HorizontalAlignment="Center" 
+                                               VerticalAlignment="Center"/>
+                    </Border>
+                    <Border BorderThickness="1 0 1 0" BorderBrush="LightGray" Grid.Column="5">
+                        <TextBlock Name="RowCountTb" Margin="5 0 5 0"
+                                               Text="0 wierszy"
+                                               HorizontalAlignment="Right" 
+                                               VerticalAlignment="Center"/>
+                    </Border>
+                </Grid>
+
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>

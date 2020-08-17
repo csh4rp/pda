@@ -1,0 +1,1164 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:con="clr-namespace:ProcessDataArchiver.WinGui.Resources.GUIResources"
+                    >
+
+
+    <Style x:Key="StdFormNextBtn" TargetType="Button">
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="Width" Value="80"/>
+        <Setter Property="Height" Value="22"/>
+        <Setter Property="Margin" Value="0 10 10 10"/>
+    </Style>
+    
+    <Style x:Key="StdFormCancelBtn" TargetType="Button">
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="Width" Value="80"/>
+        <Setter Property="Height" Value="22"/>
+        <Setter Property="Margin" Value="0 10 100 10"/>
+    </Style>
+
+    <Style x:Key="StandardTextBox" TargetType="TextBox">
+        <Setter Property="Height" Value="22"/>
+        <Style.Triggers>
+            <Trigger Property="Validation.HasError" Value="True">
+                <Setter Property="ToolTip" Value="{Binding RelativeSource={x:Static RelativeSource.Self},
+                    Path=(Validation.Errors)[0].ErrorContent}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="ValidTextBox" TargetType="TextBox">
+        <Style.Triggers>
+            <Trigger Property="Validation.HasError" Value="True">
+                <Setter Property="ToolTip" Value="{Binding RelativeSource={x:Static RelativeSource.Self},
+                    Path=(Validation.Errors)[0].ErrorContent}"/>
+            </Trigger>
+        </Style.Triggers>
+        
+    </Style>
+
+    <Style x:Key="ValidScrollTextBox" TargetType="TextBox">
+        <Style.Triggers>
+            <Trigger Property="Validation.HasError" Value="True">
+                <Setter Property="ToolTip" Value="{Binding RelativeSource={x:Static RelativeSource.Self},
+                    Path=(Validation.Errors)[0].ErrorContent}"/>
+            </Trigger>
+        </Style.Triggers>
+        <Setter Property="Margin" Value="1 1 1 1"/>
+    </Style>
+
+    <Style x:Key="ValidGroupTxtBox" TargetType="TextBox">
+        <Style.Triggers>
+            <Trigger Property="Validation.HasError" Value="True">
+                <Setter Property="ToolTip" Value="{Binding RelativeSource={x:Static RelativeSource.Self},
+                    Path=(Validation.Errors)[0].ErrorContent}"/>
+            </Trigger>
+        </Style.Triggers>
+        <Setter Property="Margin" Value="10 0 10 0"/>
+    </Style>
+
+
+    <Style x:Key="StandardComboBox" TargetType="ComboBox">
+        <Style.Triggers>
+            <Trigger Property="Validation.HasError" Value="True">
+                <Setter Property="ToolTip" Value="{Binding RelativeSource={x:Static RelativeSource.Self},
+                    Path=(Validation.Errors)[0].ErrorContent}"/>
+            </Trigger>
+        </Style.Triggers>
+        <Setter Property="Height" Value="22"/>
+        <Setter Property="SelectedIndex" Value="0"/>
+    </Style>
+
+    <Style x:Key="StandardPasswordBox" TargetType="PasswordBox">
+        <Setter Property="Height" Value="22"/>
+    </Style>
+
+    <ControlTemplate x:Name="errTmp" x:Key="errTmp">
+        <DockPanel>
+            <TextBlock Foreground="Red" FontSize="20" Margin="0 0 0 0">!</TextBlock>
+            <AdornedElementPlaceholder/>
+        </DockPanel>
+    </ControlTemplate>
+
+    <Style x:Key="GroupTextBox" TargetType="TextBox">
+        <Setter Property="Margin" Value="10 2 10 2"/>
+        <Setter Property="Height" Value="22"/>
+    </Style>
+
+    <Style x:Key="GroupTextBlock" TargetType="TextBlock">
+        <Setter Property="Margin" Value="10 2 10 2"/>
+        <Setter Property="VerticalAlignment"    Value="Center"/>
+    </Style>
+
+    <Style x:Key="GroupComboBox" TargetType="ComboBox">
+        <Setter Property="Margin" Value="10 2 10 2"/>
+        <Setter Property="Height" Value="22"/>
+    </Style>
+
+    <Style x:Key="RefreshButton" TargetType="Button">
+        <Setter Property="Content">
+            <Setter.Value>
+                <Image Source="/Resources/Icons/refresh.png"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Width" Value="22"/>
+        <Setter Property="Height" Value="22"/>
+    </Style>
+
+    <Style x:Key="BrowseButton" TargetType="Button">
+        <Setter Property="Height" Value="22"/>
+        <Setter Property="Width" Value="22"/>
+        <Setter Property="Content" Value="..."/>
+
+    </Style>
+
+
+
+    <Style x:Key="NormalFormButton" TargetType="{x:Type Button}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                <Grid>
+                    <Border Name="Border" Background="{TemplateBinding Background}" BorderBrush="#4286f4" BorderThickness="1">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Border" Property="Background" Value="AliceBlue"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    
+    <Style x:Key="SuccessFormButton" TargetType="{x:Type Button}">
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid>
+                        <Border Name="Border" Background="{TemplateBinding Background}" BorderBrush="#4286f4" BorderThickness="1">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                    </Grid>
+                    
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Border" Property="Background" Value="AliceBlue"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter Property="Foreground" Value="#4286f4"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+
+
+
+    <Style x:Key="FormTextBox" TargetType="{x:Type TextBox}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TextBox}">
+                    <Border BorderThickness="1" BorderBrush="#4286f4">
+                        <ScrollViewer Background="{TemplateBinding Background}" x:Name="PART_ContentHost"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+
+
+
+
+    <Style x:Key="RefreshImgButton" TargetType="{x:Type Button}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid Name="Grid" Width="24" Height="24">
+                        <Border Name="Bor" BorderBrush="Gray" BorderThickness="0">
+                            <Image Margin="2" Source="/Resources/Icons/refresh.png"/>
+                        </Border>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Grid" Property="Background" Value="LightBlue"/>
+                            <Setter TargetName="Bor" Property="BorderBrush" Value="#5F8BC9"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="Grid" Property="Opacity" Value="0.3"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <Style x:Key="RunButton" TargetType="{x:Type Button}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Name="Bor" BorderThickness="1" BorderBrush="Transparent" ToolTip="Start">
+                        <Image Name="Img" Margin="3" Source="/Resources/Icons/run.png"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Bor" Property="Background" Value="AliceBlue"/>
+                            <Setter TargetName="Bor" Property="BorderBrush" Value="LightBlue"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="Img" Property="Opacity" Value="0.3"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+
+    <Style x:Key="StopButton" TargetType="{x:Type Button}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Name="Bor" BorderThickness="1" BorderBrush="Transparent" ToolTip="Stop">
+                        <Image Name="Img" Margin="5" Source="/Resources/Icons/stop.png"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Bor" Property="Background" Value="AliceBlue"/>
+                            <Setter TargetName="Bor" Property="BorderBrush" Value="LightBlue"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="Img" Property="Opacity" Value="0.3"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    
+    <Style x:Key="SaveButton" TargetType="{x:Type Button}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Name="Bor" BorderThickness="1" BorderBrush="Transparent" ToolTip="Zapisz">
+                        <Image Name="Img" Margin="3" Source="/Resources/Icons/save.png"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Bor" Property="Background" Value="AliceBlue"/>
+                            <Setter TargetName="Bor" Property="BorderBrush" Value="LightBlue"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="Img" Property="Opacity" Value="0.3"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <Style x:Key="OpenButton" TargetType="{x:Type Button}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Name="Bor" BorderThickness="1" BorderBrush="Transparent" ToolTip="Otwórz">
+                        <Image Name="Img" Margin="3" Source="/Resources/Icons/open.png"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Bor" Property="Background" Value="AliceBlue"/>
+                            <Setter TargetName="Bor" Property="BorderBrush" Value="LightBlue"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="Img" Property="Opacity" Value="0.3"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="UploadButton" TargetType="{x:Type Button}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Name="Bor" BorderThickness="1" BorderBrush="Transparent" ToolTip="Eksportuj">
+                        <Image Name="Img" Margin="1" Source="/Resources/Icons/upload.png"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Bor" Property="Background" Value="AliceBlue"/>
+                            <Setter TargetName="Bor" Property="BorderBrush" Value="LightBlue"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="Img" Property="Opacity" Value="0.3"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="CommitButton" TargetType="{x:Type Button}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Name="Bor" BorderThickness="1" BorderBrush="Transparent" ToolTip="Zatwierdź">
+                        <Image Name="Img" Margin="3" Source="/Resources/Icons/database_add.png"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Bor" Property="Background" Value="AliceBlue"/>
+                            <Setter TargetName="Bor" Property="BorderBrush" Value="LightBlue"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="Img" Property="Opacity" Value="0.3"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="UnCommitButton" TargetType="{x:Type Button}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Name="Bor" BorderThickness="1" BorderBrush="Transparent" ToolTip="Cofnij">
+                        <Image Name="Img" Margin="1" Source="/Resources/Icons/database_delete.png"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Bor" Property="Background" Value="AliceBlue"/>
+                            <Setter TargetName="Bor" Property="BorderBrush" Value="LightBlue"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="Img" Property="Opacity" Value="0.3"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="PlayButton" TargetType="{x:Type Button}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Name="Bor" BorderThickness="1" BorderBrush="Transparent" ToolTip="Rozpocznij">
+                        <Image Name="Img" Margin="3" Source="/Resources/Icons/play.png"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Bor" Property="Background" Value="AliceBlue"/>
+                            <Setter TargetName="Bor" Property="BorderBrush" Value="LightBlue"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="Img" Property="Opacity" Value="0.3"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="PauseButton" TargetType="{x:Type Button}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Name="Bor" BorderThickness="1" BorderBrush="Transparent" ToolTip="Zatrzymaj">
+                        <Image Name="Img" Margin="3" Source="/Resources/Icons/pause.png"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Bor" Property="Background" Value="AliceBlue"/>
+                            <Setter TargetName="Bor" Property="BorderBrush" Value="LightBlue"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="Img" Property="Opacity" Value="0.3"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="AddButton" TargetType="{x:Type Button}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Name="Bor" BorderThickness="1" BorderBrush="Transparent" ToolTip="Dodaj">
+                        <Image Name="Img" Margin="4" Source="/Resources/Icons/plus.png"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Bor" Property="Background" Value="AliceBlue"/>
+                            <Setter TargetName="Bor" Property="BorderBrush" Value="LightBlue"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="Img" Property="Opacity" Value="0.3"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <Style x:Key="RemoveButton" TargetType="{x:Type Button}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Name="Bor" BorderThickness="1" BorderBrush="Transparent" ToolTip="Usuń">
+                        <Image Name="Img" Margin="5" Source="/Resources/Icons/minus.png"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Bor" Property="Background" Value="AliceBlue"/>
+                            <Setter TargetName="Bor" Property="BorderBrush" Value="LightBlue"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="Img" Property="Opacity" Value="0.3"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="NewButton" TargetType="{x:Type Button}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Name="Bor" BorderThickness="1" BorderBrush="Transparent" ToolTip="{TemplateBinding ToolTip}">
+                        <Image Name="Img" Margin="2" Source="/Resources/Icons/new.png"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Bor" Property="Background" Value="AliceBlue"/>
+                            <Setter TargetName="Bor" Property="BorderBrush" Value="LightBlue"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="Img" Property="Opacity" Value="0.3"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="SqlButton" TargetType="{x:Type Button}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Name="Bor" BorderThickness="1" BorderBrush="Transparent" ToolTip="{TemplateBinding ToolTip}">
+                        <Image Name="Img" Margin="1" Source="/Resources/Icons/sql.png"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Bor" Property="Background" Value="AliceBlue"/>
+                            <Setter TargetName="Bor" Property="BorderBrush" Value="LightBlue"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="Img" Property="Opacity" Value="0.3"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="TableButton" TargetType="{x:Type Button}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Name="Bor" BorderThickness="1" BorderBrush="Transparent" ToolTip="{TemplateBinding ToolTip}">
+                        <Image Name="Img" Margin="2" Source="/Resources/Icons/table.png"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Bor" Property="Background" Value="AliceBlue"/>
+                            <Setter TargetName="Bor" Property="BorderBrush" Value="LightBlue"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="Img" Property="Opacity" Value="0.3"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="GraphButton" TargetType="{x:Type Button}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Name="Bor" BorderThickness="1" BorderBrush="Transparent" ToolTip="{TemplateBinding ToolTip}">
+                        <Image Name="Img" Margin="2" Source="/Resources/Icons/graph.png"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Bor" Property="Background" Value="AliceBlue"/>
+                            <Setter TargetName="Bor" Property="BorderBrush" Value="LightBlue"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="Img" Property="Opacity" Value="0.3"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <Style x:Key="UndoButton" TargetType="{x:Type Button}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Name="Bor" BorderThickness="1" BorderBrush="Transparent" ToolTip="{TemplateBinding ToolTip}">
+                        <Image Name="Img" Margin="3" Source="/Resources/Icons/undo.png"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Bor" Property="Background" Value="AliceBlue"/>
+                            <Setter TargetName="Bor" Property="BorderBrush" Value="LightBlue"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="Img" Property="Opacity" Value="0.3"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="RedoButton" TargetType="{x:Type Button}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Name="Bor" BorderThickness="1" BorderBrush="Transparent" ToolTip="{TemplateBinding ToolTip}">
+                        <Image Name="Img" Margin="3" Source="/Resources/Icons/redo.png"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Bor" Property="Background" Value="AliceBlue"/>
+                            <Setter TargetName="Bor" Property="BorderBrush" Value="LightBlue"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="Img" Property="Opacity" Value="0.3"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+   
+    <Style x:Key="ZoomInButton" TargetType="{x:Type Button}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Name="Bor" BorderThickness="1" BorderBrush="Transparent" ToolTip="{TemplateBinding ToolTip}">
+                        <Image  Name="Img" Margin="3" Source="/Resources/Icons/zoomin.png" >
+                        </Image>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Bor" Property="Background" Value="AliceBlue"/>
+                            <Setter TargetName="Bor" Property="BorderBrush" Value="LightBlue"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="Img" Property="Opacity" Value="0.3"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="ZoomOutButton" TargetType="{x:Type Button}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Name="Bor" BorderThickness="1" BorderBrush="Transparent" ToolTip="{TemplateBinding ToolTip}">
+                        <Image  Name="Img" Margin="3" Source="/Resources/Icons/zoomout.png">
+                        </Image>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Bor" Property="Background" Value="AliceBlue"/>
+                            <Setter TargetName="Bor" Property="BorderBrush" Value="LightBlue"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="Img" Property="Opacity" Value="0.3"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="AutoSizeButton" TargetType="{x:Type Button}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Name="Bor" BorderThickness="1" BorderBrush="Transparent" ToolTip="{TemplateBinding ToolTip}">
+                        <Image  Name="Img" Margin="2" Source="/Resources/Icons/autofit.png" >
+                        </Image>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Bor" Property="Background" Value="AliceBlue"/>
+                            <Setter TargetName="Bor" Property="BorderBrush" Value="LightBlue"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="Img" Property="Opacity" Value="0.3"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="DrawGraphButton" TargetType="{x:Type Button}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Name="Bor" BorderThickness="1" BorderBrush="{TemplateBinding BorderBrush}"
+                            Background="{TemplateBinding Background}"
+                            ToolTip="{TemplateBinding ToolTip}">
+                        <Image  Name="Img" Margin="1" Source="/Resources/Icons/drawgraph.png" >
+                        </Image>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Bor" Property="Background" Value="AliceBlue"/>
+                            <Setter TargetName="Bor" Property="BorderBrush" Value="LightBlue"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="Img" Property="Opacity" Value="0.3"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="RunQueryButton" TargetType="{x:Type Button}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Name="Bor" BorderThickness="1" BorderBrush="Transparent" ToolTip="{TemplateBinding ToolTip}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="25"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                        <TextBlock Name="Tb" Grid.Column="1" Text="Wykonaj" Margin="0 2 3 0" 
+                                   HorizontalAlignment="Right"/>
+                        <Image Grid.Column="0" Name="Img" Margin="2" Source="/Resources/Icons/sql_runner.png" >
+
+                        </Image>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Bor" Property="Background" Value="AliceBlue"/>
+                            <Setter TargetName="Bor" Property="BorderBrush" Value="LightBlue"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="Img" Property="Opacity" Value="0.3"/>
+                            <Setter TargetName="Tb" Property="Opacity" Value="0.3"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="OpenScriptButton" TargetType="{x:Type Button}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Name="Bor" BorderThickness="1" BorderBrush="Transparent" ToolTip="{TemplateBinding ToolTip}">
+                        <Image  Name="Img" Margin="1" Source="/Resources/Icons/openscript.png" >
+                        </Image>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Bor" Property="Background" Value="AliceBlue"/>
+                            <Setter TargetName="Bor" Property="BorderBrush" Value="LightBlue"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="Img" Property="Opacity" Value="0.3"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <Style x:Key="StopQueryButton" TargetType="{x:Type Button}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Name="Bor" BorderThickness="1" BorderBrush="Transparent" ToolTip="{TemplateBinding ToolTip}">
+                        <Image  Name="Img" Margin="2" Source="/Resources/Icons/stopquery.png" >
+                        </Image>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Bor" Property="Background" Value="AliceBlue"/>
+                            <Setter TargetName="Bor" Property="BorderBrush" Value="LightBlue"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="Img" Property="Opacity" Value="0.3"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="SaveScriptButton" TargetType="{x:Type Button}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Name="Bor" BorderThickness="1" BorderBrush="Transparent" ToolTip="{TemplateBinding ToolTip}">
+                        <Image  Name="Img" Margin="0" Source="/Resources/Icons/script_save.png" >
+
+                        </Image>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Bor" Property="Background" Value="AliceBlue"/>
+                            <Setter TargetName="Bor" Property="BorderBrush" Value="LightBlue"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="Img" Property="Opacity" Value="0.3"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="SettingsButton" TargetType="{x:Type Button}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Name="Bor" BorderThickness="1" BorderBrush="Transparent" ToolTip="{TemplateBinding ToolTip}">
+                        <Image  Name="Img" Margin="2" Source="/Resources/Icons/configure.png" >
+
+                        </Image>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Bor" Property="Background" Value="AliceBlue"/>
+                            <Setter TargetName="Bor" Property="BorderBrush" Value="LightBlue"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="Img" Property="Opacity" Value="0.3"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="SettingsToggleButton" TargetType="{x:Type ToggleButton}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                    <Border Name="Bor" BorderThickness="1" BorderBrush="Transparent" ToolTip="{TemplateBinding ToolTip}">
+                        <Image  Name="Img" Margin="2" Source="/Resources/Icons/configure.png" >
+
+                        </Image>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Bor" Property="Background" Value="AliceBlue"/>
+                            <Setter TargetName="Bor" Property="BorderBrush" Value="LightBlue"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="Img" Property="Opacity" Value="0.3"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ListBoxTextBox" TargetType="{x:Type TextBox}">
+
+                <Setter Property="Template">
+                    <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TextBox}">
+                    <Border BorderBrush="Gray" BorderThickness="0 0 0 0.7">
+                        <ScrollViewer  x:Name="PART_ContentHost" Background="White" />
+                    </Border>
+                </ControlTemplate>
+                        
+                    </Setter.Value>
+                </Setter>
+
+    </Style>
+    
+    
+
+    <Style x:Key="CbToogleButton" TargetType="{x:Type ToggleButton}">
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="20"/>
+                        </Grid.ColumnDefinitions>
+                        <Border Name="CbBorder" Background="White" BorderBrush="#74777c" BorderThickness="0.6 0.6 0 0.6"/>
+                        <Border Name="BtBorder" Grid.Column="1" Background="White" BorderBrush="#74777c" BorderThickness="0 0.6 0.6 0.6"/>
+                        <Path Grid.Column="1"
+                              Fill="Gray"
+                             HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Data="M0,0 L0,2 L4,5 L8,2 L8,0 L4,4 z"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    
+    
+    
+
+    <Style x:Key="CustomNonEditCb" TargetType="{x:Type ComboBox}">
+        <Style.Triggers>
+            
+        </Style.Triggers>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ComboBox">
+                    <Grid>
+                        <ToggleButton
+                            Name="ToggleButton"
+                            Style="{StaticResource CbToogleButton}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            Background="{TemplateBinding Background}"
+                            Foreground="{TemplateBinding Foreground}"                            
+                            Grid.Column="2"
+                            Focusable="false"
+                            IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}"
+                            ClickMode="Press">
+                        </ToggleButton>
+                        <ContentPresenter
+                            Name="ContentSite"
+                            IsHitTestVisible="False"
+                            Content="{TemplateBinding SelectionBoxItem}" 
+                            ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                            ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                            Margin="10,3,30,3"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Left" />
+                        <TextBox x:Name="PART_EditableTextBox"
+
+                            BorderBrush="Transparent"
+                            Text="{TemplateBinding SelectionBoxItem}"
+                            IsEnabled="{Binding Path=IsEnabled,RelativeSource={RelativeSource TemplatedParent}}"
+                                 
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Stretch"
+                            Margin="3,3,23,3"
+                            Focusable="True"                               
+                            Visibility="Hidden"
+                            IsReadOnly="{TemplateBinding IsReadOnly}">
+
+                        </TextBox>
+                        <Popup
+                            Name="Popup"
+                            Placement="Bottom"
+                            IsOpen="{TemplateBinding IsDropDownOpen}"
+                            AllowsTransparency="True"
+                            Focusable="False"
+                            PopupAnimation="Slide">
+                            <Grid
+                              Name="DropDown"
+                              SnapsToDevicePixels="True"               
+                              MinWidth="{TemplateBinding ActualWidth}"
+                              MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                <Border
+                                    x:Name="DropDownBorder"
+                                    Background="White"
+                                    BorderThickness="2"
+                                    BorderBrush="Gray"/>
+                                <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
+                                    <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
+                                </ScrollViewer>
+                            </Grid>
+                        </Popup>
+
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="ToggleButton" Property="Opacity" Value="0.7"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+                
+            </Setter.Value>
+            
+        </Setter>
+    </Style>
+
+
+
+
+
+    <Style x:Key="CustomEditCb" TargetType="{x:Type ComboBox}">
+        <Style.Triggers>
+
+        </Style.Triggers>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ComboBox">
+                    <Grid>
+                        <ToggleButton
+                            Name="ToggleButton"
+                            Style="{StaticResource CbToogleButton}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            Background="{TemplateBinding Background}"
+                            Foreground="{TemplateBinding Foreground}"                            
+                            Grid.Column="2"
+                            Focusable="false"
+                            IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}"
+                            ClickMode="Press">
+                        </ToggleButton>
+
+                        <TextBox x:Name="PART_EditableTextBox"
+                            Width="5000"
+                            BorderBrush="Transparent"
+                            Text="{TemplateBinding SelectionBoxItem}"
+                            IsEnabled="{Binding Path=IsEnabled,RelativeSource={RelativeSource TemplatedParent}}"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Stretch"
+                            Margin="3,3,23,3"
+                            Focusable="True"                               
+                            Visibility="Visible"
+                            IsReadOnly="{TemplateBinding IsReadOnly}">
+                           
+                        </TextBox>
+                        <Popup
+                            Name="Popup"
+                            Placement="Bottom"
+                            IsOpen="{TemplateBinding IsDropDownOpen}"
+                            AllowsTransparency="True"
+                            Focusable="False"
+                            PopupAnimation="Slide">
+                            <Grid
+                              Name="DropDown"
+                              SnapsToDevicePixels="True"               
+                              MinWidth="{TemplateBinding ActualWidth}"
+                              MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                <Border
+                                    x:Name="DropDownBorder"
+                                    Background="White"
+                                    BorderThickness="2"
+                                    BorderBrush="Gray"/>
+                                <ScrollViewer Margin="0,0,0,0" SnapsToDevicePixels="True">
+                                    <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
+                                </ScrollViewer>
+                            </Grid>
+                        </Popup>
+
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="ToggleButton" Property="Opacity" Value="0.7"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+
+            </Setter.Value>
+
+        </Setter>
+    </Style>
+
+
+    <Style x:Key="ImageStyle" TargetType="{x:Type Image}">
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter  Property="Opacity" Value="0.3"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <DataTemplate x:Name="LineWCbDataTemplate" DataType="{x:Type ComboBoxItem}">
+        <Grid >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Line X1="0" X2="10" Y1="5" Y2="5" Stroke="Black" StrokeThickness="{Binding}"/>
+            <TextBlock Grid.Column="1" Text="{Binding}"/>
+            
+        </Grid>
+    </DataTemplate>
+
+    <BitmapImage x:Key="Copy" UriSource="/Resources/Icons.copy.png"/>
+
+    <Style x:Key="LoadingIndicatorArcsRingStyleKey" TargetType="{x:Type con:LoadingIndicator}">
+        <Setter Property="Foreground" Value="{DynamicResource AccentColorBrush}"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Width" Value="40"/>
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type con:LoadingIndicator}">
+                    <Border x:Name="PART_Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="SizeStates">
+                                <VisualState x:Name="Large" />
+                                <VisualState x:Name="Small" />
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="ActiveStates">
+                                <VisualState x:Name="Inactive"/>
+                                <VisualState x:Name="Active">
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames BeginTime="0:0:0.000" RepeatBehavior="Forever" Storyboard.TargetName="PART_Canvas0" Storyboard.TargetProperty="(UIElement.Opacity)">
+                                            <DiscreteDoubleKeyFrame KeyTime="0:0:0.000" Value="1"/>
+                                            <DiscreteDoubleKeyFrame KeyTime="0:0:0.100" Value="0.3"/>
+                                            <DiscreteDoubleKeyFrame KeyTime="0:0:0.800" Value="0.3"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames BeginTime="0:0:0.100" RepeatBehavior="Forever" Storyboard.TargetName="PART_Canvas1" Storyboard.TargetProperty="(UIElement.Opacity)">
+                                            <DiscreteDoubleKeyFrame KeyTime="0:0:0.000" Value="1"/>
+                                            <DiscreteDoubleKeyFrame KeyTime="0:0:0.100" Value="0.3"/>
+                                            <DiscreteDoubleKeyFrame KeyTime="0:0:0.800" Value="0.3"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames BeginTime="0:0:0.200" RepeatBehavior="Forever" Storyboard.TargetName="PART_Canvas2" Storyboard.TargetProperty="(UIElement.Opacity)">
+                                            <DiscreteDoubleKeyFrame KeyTime="0:0:0.000" Value="1"/>
+                                            <DiscreteDoubleKeyFrame KeyTime="0:0:0.100" Value="0.3"/>
+                                            <DiscreteDoubleKeyFrame KeyTime="0:0:0.800" Value="0.3"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames BeginTime="0:0:0.300" RepeatBehavior="Forever" Storyboard.TargetName="PART_Canvas3" Storyboard.TargetProperty="(UIElement.Opacity)">
+                                            <DiscreteDoubleKeyFrame KeyTime="0:0:0.000" Value="1"/>
+                                            <DiscreteDoubleKeyFrame KeyTime="0:0:0.100" Value="0.3"/>
+                                            <DiscreteDoubleKeyFrame KeyTime="0:0:0.800" Value="0.3"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames BeginTime="0:0:0.400" RepeatBehavior="Forever" Storyboard.TargetName="PART_Canvas4" Storyboard.TargetProperty="(UIElement.Opacity)">
+                                            <DiscreteDoubleKeyFrame KeyTime="0:0:0.000" Value="1"/>
+                                            <DiscreteDoubleKeyFrame KeyTime="0:0:0.100" Value="0.3"/>
+                                            <DiscreteDoubleKeyFrame KeyTime="0:0:0.800" Value="0.3"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames BeginTime="0:0:0.500" RepeatBehavior="Forever" Storyboard.TargetName="PART_Canvas5" Storyboard.TargetProperty="(UIElement.Opacity)">
+                                            <DiscreteDoubleKeyFrame KeyTime="0:0:0.000" Value="1"/>
+                                            <DiscreteDoubleKeyFrame KeyTime="0:0:0.100" Value="0.3"/>
+                                            <DiscreteDoubleKeyFrame KeyTime="0:0:0.800" Value="0.3"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames BeginTime="0:0:0.600" RepeatBehavior="Forever" Storyboard.TargetName="PART_Canvas6" Storyboard.TargetProperty="(UIElement.Opacity)">
+                                            <DiscreteDoubleKeyFrame KeyTime="0:0:0.000" Value="1"/>
+                                            <DiscreteDoubleKeyFrame KeyTime="0:0:0.100" Value="0.3"/>
+                                            <DiscreteDoubleKeyFrame KeyTime="0:0:0.800" Value="0.3"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames BeginTime="0:0:0.700" RepeatBehavior="Forever" Storyboard.TargetName="PART_Canvas7" Storyboard.TargetProperty="(UIElement.Opacity)">
+                                            <DiscreteDoubleKeyFrame KeyTime="0:0:0.000" Value="1"/>
+                                            <DiscreteDoubleKeyFrame KeyTime="0:0:0.100" Value="0.3"/>
+                                            <DiscreteDoubleKeyFrame KeyTime="0:0:0.800" Value="0.3"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+
+                        <Border.Resources>
+                            <Style TargetType="{x:Type Canvas}">
+                                <Setter Property="Opacity" Value="0.3"/>
+                            </Style>
+
+                            <Style TargetType="{x:Type Path}">
+                                <Setter Property="StrokeThickness" Value="10"/>
+                            </Style>
+                        </Border.Resources>
+
+                        <Grid Background="Transparent" Width="40" Height="40" VerticalAlignment="Center" HorizontalAlignment="Center" RenderTransformOrigin="0.5,0.5">
+                            <Grid.RenderTransform>
+                                <ScaleTransform ScaleX="0.5" ScaleY="0.5"/>
+                            </Grid.RenderTransform>
+
+                            <Canvas x:Name="PART_Canvas0">
+                                <Canvas.RenderTransform>
+                                    <TranslateTransform X="0" Y="-14"/>
+                                </Canvas.RenderTransform>
+                                <Path Stroke="{TemplateBinding Foreground}" Data="M 10,0 A 40,40 0 0 1 30,0"/>
+                            </Canvas>
+                            <Canvas x:Name="PART_Canvas1">
+                                <Canvas.RenderTransform>
+                                    <TranslateTransform X="12" Y="-12"/>
+                                </Canvas.RenderTransform>
+                                <Path Stroke="{TemplateBinding Foreground}" Data="M 40,14 A 40,40 0 0 0 24,0"/>
+                            </Canvas>
+                            <Canvas x:Name="PART_Canvas2">
+                                <Canvas.RenderTransform>
+                                    <TranslateTransform X="14" Y="0"/>
+                                </Canvas.RenderTransform>
+                                <Path Stroke="{TemplateBinding Foreground}" Data="M 40,10 A 40,40 0 0 1 40,30"/>
+                            </Canvas>
+                            <Canvas x:Name="PART_Canvas3">
+                                <Canvas.RenderTransform>
+                                    <TranslateTransform X="12" Y="12"/>
+                                </Canvas.RenderTransform>
+                                <Path Stroke="{TemplateBinding Foreground}" Data="M 40,24 A 40,40 0 0 1 24,40"/>
+                            </Canvas>
+                            <Canvas x:Name="PART_Canvas4">
+                                <Canvas.RenderTransform>
+                                    <TranslateTransform X="0" Y="14"/>
+                                </Canvas.RenderTransform>
+                                <Path Stroke="{TemplateBinding Foreground}" Data="M 10,40 A 40,40 0 0 0 30,40"/>
+                            </Canvas>
+                            <Canvas x:Name="PART_Canvas5">
+                                <Canvas.RenderTransform>
+                                    <TranslateTransform X="-12" Y="12"/>
+                                </Canvas.RenderTransform>
+                                <Path Stroke="{TemplateBinding Foreground}" Data="M 0,24 A 40,40 0 0 0 14,40"/>
+                            </Canvas>
+                            <Canvas x:Name="PART_Canvas6">
+                                <Canvas.RenderTransform>
+                                    <TranslateTransform X="-14" Y="0"/>
+                                </Canvas.RenderTransform>
+                                <Path Stroke="{TemplateBinding Foreground}" Data="M 0,10 A 40,40 0 0 0 0,30"/>
+                            </Canvas>
+                            <Canvas x:Name="PART_Canvas7">
+                                <Canvas.RenderTransform>
+                                    <TranslateTransform X="-12" Y="-12"/>
+                                </Canvas.RenderTransform>
+                                <Path Stroke="{TemplateBinding Foreground}" Data="M 0,14 A 40,40 0 0 1 14,0"/>
+                            </Canvas>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

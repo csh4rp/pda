@@ -1,0 +1,699 @@
+﻿<Window x:Class="ProcessDataArchiver.WinGui.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ad="http://schemas.xceed.com/wpf/xaml/avalondock"
+        xmlns:local="clr-namespace:ProcessDataArchiver.WinGui"
+        xmlns:l="clr-namespace:ProcessDataArchiver.WinGui"
+        xmlns:wp="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+        xmlns:artype="clr-namespace:ProcessDataArchiver.DataCore.DbEntities.Tags;assembly=ProcessDataArchiver.DataCore"
+        mc:Ignorable="d"
+        Title="Process Data Archiver" Height="600" Width="1024">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/GUIResources/WindowDictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Window.CommandBindings>
+        <CommandBinding Command="New"
+                        Executed="NewCommandBinding_Executed"/>
+        <CommandBinding Command="Open"
+                        Executed="OpenCommandBinding_Executed"/>
+        <CommandBinding Command="Save"
+                        CanExecute="SaveCommand_CanExecute"
+                        Executed="SaveCommandBinding_Executed"/>
+        <CommandBinding Command="Undo"
+                        CanExecute="UndoCommand_CanExecute"
+                        Executed="UndoCommand_Execute" />
+        <CommandBinding Command="Redo"
+                        CanExecute="RedoCommand_CanExecute"
+                        Executed="RedoCommand_Executed"/>
+        <CommandBinding Command="Copy"
+                        CanExecute="CopyCommand_CanExecute"
+                        Executed="CopyCommand_Executed"/>
+        <CommandBinding Command="Cut"
+                        CanExecute="CutCommand_CanExecute"
+                        Executed="CutCommand_Executed"/>
+        <CommandBinding Command="Paste"
+                        CanExecute="PasteCommand_CanExecute"
+                        Executed="PasteCommand_Executed"/>
+        <CommandBinding Command="SelectAll"
+                        CanExecute="SelectAllCommand_CanExecute"
+                        Executed="SelectAllCommand_Executed"/>
+
+        <CommandBinding Command="Delete"
+                        CanExecute="DeleteCommand_CanExecute"
+                        Executed="DeleteCommand_Executed"/>
+
+        <CommandBinding Command="{x:Static local:MainWindow.SqlQueryCmd}"
+                        CanExecute="SqlQueryCommand_CanExecute"
+                        Executed="SqlQueryCommand_Executed"/>
+        <CommandBinding Command="{x:Static local:MainWindow.QueryCmd}"
+                        CanExecute="QueryCommand_CanExecute"
+                        Executed="QueryCommand_Executed"/>
+        <CommandBinding Command="{x:Static local:MainWindow.TrendCmd}"
+                        CanExecute="TrendCommand_CanExecute"
+                        Executed="TrendCommand_Executed"/>
+        <CommandBinding Command="{x:Static local:MainWindow.DataSourceCmd}"
+                        CanExecute="DsCommand_CanExecute"
+                        Executed="DsCommand_Executed"/>
+        <CommandBinding Command="{x:Static local:MainWindow.DatabaseCmd}"
+                        CanExecute="DbCommand_CanExecute"
+                        Executed="DbCommand_Executed"/>
+        <CommandBinding Command="{x:Static local:MainWindow.ProgramCmd}"
+                        CanExecute="ProgramCommand_CanExecute"
+                        Executed="ProgramCommand_Executed"/>
+        <CommandBinding Command="{x:Static local:MainWindow.StartCmd}"
+                        CanExecute="StartCommand_CanExecute"
+                        Executed="StartCommand_Executed"/>
+        <CommandBinding Command="{x:Static local:MainWindow.StopCmd}"
+                        CanExecute="StopCommand_CanExecute"
+                        Executed="StopCommand_Executed"/>
+        <CommandBinding Command="{x:Static local:MainWindow.AddArchiveCmd}"
+                        CanExecute="AddArchiveCommand_CanExecute"
+                        Executed="AddArchiveCommand_Executed"/>
+        <CommandBinding Command="{x:Static local:MainWindow.LoadScriptCmd}"
+                        CanExecute="LoadScriptCommand_CanExecute"
+                        Executed="LoadScriptCommand_Executed"/>
+        <CommandBinding Command="{x:Static local:MainWindow.CloseAllWindows}"
+                        CanExecute="CloseAllCommand_CanExecute"
+                        Executed="CloseAlltCommand_Executed"/>
+        <CommandBinding Command="{x:Static local:MainWindow.FloatWindow}"
+                        CanExecute="FloatCommand_CanExecute"
+                        Executed="FloatCommand_Executed"/>
+        <CommandBinding Command="{x:Static local:MainWindow.FloatAllWindows}"
+                        CanExecute="FloatAllCommand_CanExecute"
+                        Executed="FloatAllCommand_Executed"/>
+        <CommandBinding Command="{x:Static local:MainWindow.DockWindow}"
+                        CanExecute="DockCommand_CanExecute"
+                        Executed="DockCommand_Executed"/>
+        <CommandBinding Command="{x:Static local:MainWindow.EventsCmd}"
+                        CanExecute="EventsCommand_CanExecute"
+                        Executed="EventsCommand_Executed"/>
+        <CommandBinding Command="{x:Static local:MainWindow.GlobalVariablesCmd}"
+                        CanExecute="GvsCommand_CanExecute"
+                        Executed="GvsCommand_Executed"/>
+        <CommandBinding Command="{x:Static local:MainWindow.LookupTableCmd}"
+                        CanExecute="LookupCommand_CanExecute"
+                        Executed="LookupCommand_Executed"/>
+
+    </Window.CommandBindings>
+    <Window.InputBindings>
+        <KeyBinding Command="{x:Static local:MainWindow.SqlQueryCmd}" Key="Q" Modifiers="Ctrl"/>
+        <KeyBinding Command="{x:Static local:MainWindow.QueryCmd}" Key="D" Modifiers="Ctrl"/>
+        <KeyBinding Command="{x:Static local:MainWindow.TrendCmd}" Key="T" Modifiers="Ctrl"/>
+        <KeyBinding Command="{x:Static local:MainWindow.EventsCmd}" Key="E" Modifiers="Ctrl"/>
+        <KeyBinding Command="{x:Static local:MainWindow.LookupTableCmd}" Key="L" Modifiers="Ctrl"/>
+    </Window.InputBindings>
+
+    <Grid >
+
+
+        
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="54"/>
+            <RowDefinition Height="*"/>
+
+            <RowDefinition Height="25"/>
+        </Grid.RowDefinitions>
+
+
+        
+        <Grid Grid.Row="0" Name="UpperGrid" Background="#f1f1f1">
+                         
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="22"/>
+                    <RowDefinition Height="45"/>
+                    <RowDefinition Height="4"/>
+                </Grid.RowDefinitions>
+                <Menu Grid.Row="0"  Background="#e9e9e9" >
+                    
+                    <MenuItem x:Name="FileMenuItem" Header="Plik" >
+                        <MenuItem x:Name="FileNewMenuItem" Header="Nowy" Command="New"  >
+                            <MenuItem.Icon>
+                                <Image Margin="0" Source="/Resources/Icons/new.png"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem x:Name="FileOpenMenuItem" Header="Otwórz" Command="Open"  >
+                            <MenuItem.Icon>
+                                <Image Margin="0" Source="/Resources/Icons/open.png"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem x:Name="FileCloseMenuItem" Header="Zamknij projekt" Click="FileCloseMenuItem_Click" 
+                                  IsEnabled="False">
+
+                        </MenuItem>
+                        <Separator/>
+                        <MenuItem x:Name="FileSaveMenuItem" Header="Zapisz" Command="Save"  >
+                            <MenuItem.Icon>
+                                <Image  Margin="0" Source="/Resources/Icons/save.png" Style="{StaticResource ImageStyle}"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem x:Name="FileSaveAsMenuItem" Header="Zapisz jako..." Click="FileSaveAsMenuItem_Click"
+                                  IsEnabled="{Binding ElementName=FileSaveMenuItem,Path=IsEnabled}">
+                        </MenuItem>
+                        <Separator/>
+                        <MenuItem x:Name="ExitMenuItem" Header="Wyjdź" Click="ExitMenuItem_Click"/>
+                    </MenuItem>
+
+
+                    <MenuItem Header="Edycja">
+                        
+                        <MenuItem x:Name="EditUndoMenuItem" Header="Cofnij" Command="Undo">
+                            <MenuItem.Icon>
+                                <Image  Margin="1" Source="/Resources/Icons/undo.png" Style="{StaticResource ImageStyle}"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem x:Name="EditRedoMenuItem" Header="Powtórz" Command="Redo">
+                            <MenuItem.Icon>
+                                <Image  Margin="1" Source="/Resources/Icons/redo.png" Style="{StaticResource ImageStyle}"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <Separator/>
+
+                        <MenuItem x:Name="EditCopyMenuItem" Header="Kopiuj" Command="Copy">
+                            <MenuItem.Icon>
+                                <Image  Margin="0" Source="/Resources/Icons/copy.png" Style="{StaticResource ImageStyle}"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+
+                        <MenuItem x:Name="EditCutMenuItem" Header="Wytnij" Command="Cut">
+                            <MenuItem.Icon>
+                                <Image  Margin="0" Source="/Resources/Icons/cut.png" Style="{StaticResource ImageStyle}"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+
+                        <MenuItem x:Name="EditPasteMenuItem" Header="Wklej" Command="Paste">
+                            <MenuItem.Icon>
+                                <Image  Margin="0" Source="/Resources/Icons/paste.png" Style="{StaticResource ImageStyle}"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+
+                        <MenuItem x:Name="EditDeleteMenuItem" Header="Usuń" Command="Delete">
+                            <MenuItem.Icon>
+                                <Image  Margin="1" Source="/Resources/Icons/erase.png" Style="{StaticResource ImageStyle}"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <Separator/>
+                        <MenuItem x:Name="EditSelectMenuItem" Header="Zaznacz wszystko" Command="SelectAll">
+                            <MenuItem.Icon>
+                                <Image  Margin="0" Source="/Resources/Icons/select.png" Style="{StaticResource ImageStyle}"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+
+                    </MenuItem>
+
+                    <MenuItem Header="Widok">
+                        <MenuItem Name="ViewSqlQueryMenuItem" Header="Polecenie SQL" 
+                                  Command="{x:Static local:MainWindow.SqlQueryCmd}"
+                                  InputGestureText="Ctrl+Q" 
+                                  >
+                        <MenuItem.Icon>
+                            <Image Source="/Resources/Icons/sql.png" Style="{StaticResource ImageStyle}"/>
+                        </MenuItem.Icon>
+                        </MenuItem>
+                    <MenuItem Name="ViewQueryMenuItem" Header="Kwerenda" 
+                              Command="{x:Static local:MainWindow.QueryCmd}"
+                              InputGestureText="Ctrl+D">
+                        <MenuItem.Icon>
+                            <Image Source="/Resources/Icons/table.png" Style="{StaticResource ImageStyle}"/>
+                        </MenuItem.Icon>
+
+                    </MenuItem>
+
+                    <MenuItem Name="ViewTrendMenuItem" Header="Wykres" 
+                               Command="{x:Static local:MainWindow.TrendCmd}"
+                              InputGestureText="Ctrl+W">
+                        <MenuItem.Icon>
+                            <Image Source="/Resources/Icons/graph.png" Style="{StaticResource ImageStyle}"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <Separator/>
+                        
+                    <MenuItem Name="ViewGvsMenuItem" Header="Zmienne Globalne" 
+                               Command="{x:Static local:MainWindow.GlobalVariablesCmd}">
+                        <MenuItem.Icon>
+                            <Image Source="/Resources/Icons/geography.png" Style="{StaticResource ImageStyle}" Margin="0" Height="18" Width="18"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Name="ViewEventsMenuItem" Header="Zdarzenia" 
+                               Command="{x:Static local:MainWindow.EventsCmd}" InputGestureText="Ctrl+E">
+                        <MenuItem.Icon>
+                            <Image Source="/Resources/Icons/flash.png" Style="{StaticResource ImageStyle}"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Name="ViewLookupMenuItem" Header="Tabela podglądowa" 
+                               Command="{x:Static local:MainWindow.EventsCmd}" InputGestureText="Ctrl+L">
+                        <MenuItem.Icon>
+                            <Image Source="/Resources/Icons/lookup_table.png" Style="{StaticResource ImageStyle}"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+
+                </MenuItem>
+
+                    
+                    
+                <MenuItem   Header="Projekt">
+                    <MenuItem Name="ProjectDsMenuItem" Header="Źródło danych"
+                               Command="{x:Static local:MainWindow.DataSourceCmd}">
+                        
+                    </MenuItem>
+
+                    <MenuItem Name="ProjectDbMenuItem" Header="Baza danych"
+                               Command="{x:Static local:MainWindow.DatabaseCmd}">
+                        <MenuItem.Icon>
+                            <Image Source="/Resources/Icons/database_options.png" Style="{StaticResource ImageStyle}"/>
+                        </MenuItem.Icon>
+
+                    </MenuItem>
+                    <MenuItem Name="ProjectProgramMenuItem" Header="Program"
+                               Command="{x:Static local:MainWindow.ProgramCmd}">
+
+                    </MenuItem>
+                    <Separator/>
+                    <MenuItem Name="ProjectStartMenuItem" Header="Start" 
+                               Command="{x:Static local:MainWindow.StartCmd}">
+                        <MenuItem.Icon>
+                            <Image Source="/Resources/Icons/run.png" Style="{StaticResource ImageStyle}"/>
+                        </MenuItem.Icon>
+
+                    </MenuItem>
+                    <MenuItem Name="ProjectStopMenuItem" Header="Stop" 
+                               Command="{x:Static local:MainWindow.StopCmd}">
+                        <MenuItem.Icon>
+                            <Image Margin="2" Source="/Resources/Icons/stop.png" Style="{StaticResource ImageStyle}"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    
+                    <Separator/>
+                    <MenuItem Name="ProjectAddArchiveMenuItem" Header="Dodaj Archiwum"
+                              Command="{x:Static local:MainWindow.AddArchiveCmd}">
+
+                    </MenuItem>
+
+                </MenuItem>
+
+                <MenuItem Header="Narzędzia">
+                    <MenuItem Name="ToolsSqlScriptMenuItem" Header="Wykonaj skrypt"
+                              Command="{x:Static local:MainWindow.LoadScriptCmd}">
+                       
+                    </MenuItem>
+                    <Separator/>
+
+
+
+
+                </MenuItem>
+
+                <MenuItem Header="Okno">
+
+                    <MenuItem Name="WindowFloat" Header="Unieś" 
+                              Command="{x:Static local:MainWindow.FloatWindow}"></MenuItem>
+                    <MenuItem Name="WindowFloatAll" Header="Unieś Wszystkie" 
+                              Command="{x:Static local:MainWindow.FloatAllWindows}"></MenuItem>
+                    <MenuItem Name="WindowDock" Header="Dokuj" 
+                              Command="{x:Static local:MainWindow.DockWindow}"></MenuItem>
+                    <Separator/>
+                    <MenuItem Name="WindowCloseAll" Header="Zamknij wszystkie okna" 
+                              Command="{x:Static local:MainWindow.CloseAllWindows}"></MenuItem>
+                </MenuItem>
+
+
+                <MenuItem Header="Pomoc">
+
+
+                </MenuItem>
+
+            </Menu>
+                <Grid Grid.Row="1" x:Name="ToolBarGrid" Background="#e9e9e9">
+
+
+                <ToolBarTray VerticalAlignment="Top" Background="#e9e9e9" >
+                    
+
+                        <ToolBar Background="#f1f1f1"  Height="29" VerticalAlignment="Center"
+                                 HorizontalAlignment="Left" >
+                 
+                            <Button Name="NewProjectButton"  
+                                    ToolTip="Nowy" Command="New"
+                                    Style="{StaticResource NewButton}"/>
+                            
+
+
+                            <Button Name="OpenProjectButton"  Command="Open"
+                                    Style="{StaticResource OpenButton}" />
+
+
+
+                        <Button Name="SaveButton"  Command="Save"
+                                    Style="{StaticResource SaveButton}"/>
+                        <Separator/>
+                            
+                        <Button  Name="SqlCmdButton" 
+                                ToolTip="Nowe zapytanie" Click="SqlCmdButton_Click"
+                                 Style="{StaticResource SqlButton}" IsEnabled="False"
+                                    />
+
+
+                            <Button  Name="QueryButton" 
+                                    ToolTip="Nowa kwerenda" IsEnabled="False"
+                                     Click="QueryButton_Click"
+                                    Style="{StaticResource TableButton}"
+                                     />
+
+
+                            <Button  Name="TrendButton" 
+                                    ToolTip="Wykres" IsEnabled="False"
+                                     Click="TrendButton_Click"
+                                    Style="{StaticResource GraphButton}"/>
+                        <Separator/>
+
+                        <Button  Name="StartButton" IsEnabled="False" ToolTip="Start"
+                               Style="{StaticResource RunButton}" Click="StartButton_Click"
+                                 />
+
+
+                            <Button  Name="PauseButton" IsEnabled="False"
+                                    ToolTip="Stop" Click="PauseButton_Click"
+                                    Style="{StaticResource StopButton}"/>
+
+
+                        
+                        </ToolBar>
+
+
+
+
+
+
+
+
+                </ToolBarTray>
+            </Grid>
+                <Grid Grid.Row="2" Background="#e9e9e9"></Grid>
+            </Grid>
+
+
+
+
+
+        <Grid Grid.Row="1" Name="MidGrid" >
+
+            <ad:DockingManager Name="dcManager" Background="#f4f4f4">
+                <ad:DockingManager.Theme>
+                    <ad:AeroTheme/>
+                </ad:DockingManager.Theme>
+                <ad:LayoutRoot>
+                    <ad:LayoutPanel x:Name="Panel" Orientation="Horizontal">
+
+                    </ad:LayoutPanel>
+                    <ad:LayoutRoot.LeftSide>
+                        <ad:LayoutAnchorSide>
+                            <ad:LayoutAnchorGroup>
+                                <ad:LayoutAnchorable x:Name="ProjectAnchorable"  Title="Projekt" IsMaximized="True" IsActive="True"
+                                                       IsSelected="True" 
+                                  CanHide="False"  CanClose="False" CanFloat="False" AutoHideMinWidth="250">
+                                    <Border BorderBrush="LightGray" BorderThickness="1">
+                                    <Grid Background="#f9f9f9">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="20"/>
+                                            <RowDefinition/>
+                                            <RowDefinition Height="20"/>
+                                        </Grid.RowDefinitions>
+
+
+                                        <TreeView Name="TreeV" Grid.Column="0" Grid.Row="1" BorderThickness="1" 
+                                                  BorderBrush="LightGray" Margin="10 0 10 0"
+                                                  >
+                                            <TreeView.ItemContainerStyle>
+                                                <Style TargetType="{x:Type TreeViewItem}">
+                                                    <Style.Triggers>
+                                                        <Trigger Property="IsSelected" Value="True">
+                                                            <Setter  Property="BorderThickness" Value="0 0 0 0"></Setter>
+                                                            <Setter Property="BorderBrush" Value="Black"></Setter>
+                                                        </Trigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TreeView.ItemContainerStyle>
+                                            <TreeView.Resources>
+                                                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="AliceBlue"/>
+                                                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}"
+                                                Color="Black" />
+                                            </TreeView.Resources>
+
+                                            
+                                            
+                                            
+                                         <TreeViewItem Name="ProjectItem"   Visibility="Hidden">
+                                                    <TreeViewItem.Header>
+                                                        <Grid>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="22"/>
+                                                                <ColumnDefinition/>
+                                                            </Grid.ColumnDefinitions>
+                                                            <Image Margin="1" Source="/Resources/Icons/folder.png"></Image>
+                                                            <Label  Grid.Column="1">
+                                                                <TextBlock Text="{Binding}">
+                                                                    <TextBlock.Style>
+                                                                        <Style TargetType="{x:Type TextBlock}">
+                                                                            <Style.Triggers>
+                                                                                <Trigger Property="IsMouseOver" Value="True">
+                                                                                    <Setter Property="TextDecorations" Value="UnderLine"/>
+                                                                                </Trigger>
+                                                                            </Style.Triggers>
+                                                                        </Style>
+                                                                    </TextBlock.Style>
+                                
+                                                                </TextBlock>
+                                                            </Label>
+                                                        </Grid>
+                                                    </TreeViewItem.Header>
+
+                                                    
+                                                    
+                                                    
+                                            <TreeViewItem Name="GvItem" MouseDoubleClick="GvItem_MouseDoubleClick">
+                                                <TreeViewItem.Header>
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="22"/>
+                                                            <ColumnDefinition/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <Image Source="/Resources/Icons/geography.png"></Image>
+                                                        <Label  Grid.Column="1">
+                                                            <TextBlock>
+                                                                <TextBlock.Style>
+                                                                    <Style TargetType="{x:Type TextBlock}">
+                                                                        <Style.Triggers>
+                                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                                <Setter Property="TextDecorations" Value="UnderLine"/>
+                                                                            </Trigger>
+                                                                        </Style.Triggers>
+                                                                    </Style>
+                                                                </TextBlock.Style>
+                                Zmienne globalne
+                                                            </TextBlock>
+                                                        </Label>
+                                                    </Grid>
+                                                </TreeViewItem.Header>
+                                            </TreeViewItem>
+
+
+
+
+
+                                            <TreeViewItem Name="Archives" TreeViewItem.Selected="Archives_Selected" TreeViewItem.Unselected="Archives_Unselected">
+                                                <TreeViewItem.Header>
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="18"/>
+                                                            <ColumnDefinition/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <Image Margin="2 0 0 2" Source="/Resources/Icons/archive_main.png"></Image>
+                                                        <Label Margin="4 0 0 0"  Grid.Column="1">
+                                                            <TextBlock>
+                                                                <TextBlock.Style>
+                                                                    <Style TargetType="{x:Type TextBlock}">
+                                                                        <Style.Triggers>
+                                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                                <Setter Property="TextDecorations" Value="UnderLine"/>
+                                                                            </Trigger>
+                                                                        </Style.Triggers>
+                                                                    </Style>
+                                                                </TextBlock.Style>
+                                 Archiwa
+                                                            </TextBlock>
+                                                        </Label>
+                                                    </Grid>
+                                                </TreeViewItem.Header>
+                                                
+                                                <TreeViewItem Name="NewArchive" MouseDoubleClick="NewArchive_MouseDoubleClick">
+                                                    <TreeViewItem.Header>
+                                                                <Grid>
+                                                                    <Grid.ColumnDefinitions>
+                                                                        <ColumnDefinition Width="20"/>
+                                                                        <ColumnDefinition/>
+                                                                    </Grid.ColumnDefinitions>
+                                                                    <Image Source="/Resources/Icons/create_archive.png" Style="{StaticResource ImageStyle}"></Image>
+                                                                    <TextBlock Grid.Column="1" Margin="4 0 0 0">
+                                                                        <TextBlock.Style>
+                                                                            <Style TargetType="{x:Type TextBlock}">
+                                                                                <Style.Triggers>
+                                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                                        <Setter Property="TextDecorations" Value="UnderLine"/>
+                                                                                    </Trigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </TextBlock.Style>
+                                 Nowe Archiwum
+                                                                    </TextBlock>
+                                                                </Grid>
+                                                            </TreeViewItem.Header>
+                                                    
+                                                </TreeViewItem>
+                                                       
+                                                <TreeViewItem.ItemTemplate>
+                                                    
+                                                    <DataTemplate DataType="{x:Type artype:TagArchive}">
+                                                            <Grid>
+                                                              
+                                                                <Grid.ContextMenu>
+                                                                        <ContextMenu>
+                                                                            <MenuItem Name="RemoveArchiveMenuItem" InputGestureText="Del"
+                                                                                       Click="RemoveArchiveMenuItem_Click">
+                                                                                <MenuItem.Header>
+                                                                                    <TextBlock Text="{Binding Path=Name,StringFormat='Usuń {0}'}"/>
+                                                                                </MenuItem.Header>
+                                                                                <MenuItem.Icon>
+                                                                                    <Image Source="/Resources/Icons/erase.png"/>
+                                                                                </MenuItem.Icon>
+                                                                                
+                                                                            </MenuItem>
+                                                                            <MenuItem Name="EditArchiveMenuItem" 
+                                                                                       Click="EditArchiveMenuItem_Click">
+                                                                                <MenuItem.Header>
+                                                                                    <TextBlock Text="{Binding Path=Name,StringFormat='Edytuj {0}'}"/>
+                                                                                </MenuItem.Header>
+                                                                                <MenuItem.Icon>
+                                                                                    <Image Source="/Resources/Icons/edit.png"/>
+                                                                                </MenuItem.Icon>
+                                                                            </MenuItem>
+
+                                                                        </ContextMenu>
+                                                                </Grid.ContextMenu>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="20"/>
+                                                                <ColumnDefinition/>
+                                                            </Grid.ColumnDefinitions>
+                                                            <Image Source="/Resources/Icons/archive.png"/>
+                                                            <TextBlock Margin="4 0 0 0" Grid.Column="1" Text="{Binding Path=Name}" HorizontalAlignment="Stretch"
+                                                                       MouseDown="ArchiveTextBlock_MouseDown">
+                                                                    <TextBlock.Style>
+                                                                        <Style TargetType="{x:Type TextBlock}">
+                                                                            <Style.Triggers>
+                                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                                        <Setter Property="TextDecorations" Value="UnderLine"/>
+                                                                                    </Trigger>
+                                                                                </Style.Triggers>
+                                                                        </Style>
+                                                                    </TextBlock.Style>
+                                                                </TextBlock>
+                                                        </Grid>
+                                                    </DataTemplate>
+                                                </TreeViewItem.ItemTemplate>
+                                                
+                                            </TreeViewItem>
+
+                                            <TreeViewItem Name="Events">
+                                                <TreeViewItem.Header>
+                                                    <Grid MouseDown="Events_MouseDown">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="18"/>
+                                                            <ColumnDefinition/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <Image Source="/Resources/Icons/flash.png"></Image>
+                                                        <Label Margin="4 0 0 0"  Grid.Column="1">
+                                                            <TextBlock>
+                                                                <TextBlock.Style>
+                                                                    <Style TargetType="{x:Type TextBlock}">
+                                                                        <Style.Triggers>
+                                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                                <Setter Property="TextDecorations" Value="UnderLine"/>
+                                                                            </Trigger>
+                                                                        </Style.Triggers>
+                                                                    </Style>
+                                                                </TextBlock.Style>
+                                Zdarzenia
+                                                            </TextBlock>
+                                                        </Label>
+                                                    </Grid>
+                                                </TreeViewItem.Header>
+                                            </TreeViewItem>
+
+                                            <TreeViewItem Name="LiveTable" MouseDoubleClick="LiveTable_MouseDoubleClick" >
+                                                <TreeViewItem.Header>
+                                                    <Grid MouseDown="LookupTables_MouseDown">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="18"/>
+                                                            <ColumnDefinition/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <Image Source="/Resources/Icons/lookup_table.png"></Image>
+                                                        <Label Margin="4 0 0 0" Width="150" Grid.Column="1">
+                                                            <TextBlock>
+                                                                <TextBlock.Style>
+                                                                    <Style TargetType="{x:Type TextBlock}">
+                                                                        <Style.Triggers>
+                                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                                <Setter Property="TextDecorations" Value="UnderLine"/>
+                                                                            </Trigger>
+                                                                        </Style.Triggers>
+                                                                    </Style>
+                                                                </TextBlock.Style>
+                                Tabela podglądowa
+                                                            </TextBlock>
+                                                        </Label>
+                                                    </Grid>
+                                                </TreeViewItem.Header>
+                                            </TreeViewItem>
+
+                                                </TreeViewItem>
+
+                                            </TreeView>
+
+
+
+                                    </Grid>
+                                    </Border>
+                                </ad:LayoutAnchorable>
+                            </ad:LayoutAnchorGroup>
+                        </ad:LayoutAnchorSide>
+                    </ad:LayoutRoot.LeftSide>
+
+                </ad:LayoutRoot>
+            </ad:DockingManager>
+        </Grid>
+
+
+        <wp:BusyIndicator Name="busy" IsBusy="False" BusyContent="Wczytywanie..." Grid.Row="0"
+                         Grid.RowSpan="3">
+        </wp:BusyIndicator>
+
+        <Grid Grid.Row="2" >
+            <StatusBar Background="#e9e9e9">
+                <Grid >
+                    <TextBlock Name="StatusText" Text="Zatrzymano" VerticalAlignment="Center" Margin="5 0 0 0"></TextBlock>
+                   
+                </Grid>
+            </StatusBar>
+        </Grid>
+
+    </Grid>
+        
+        
+    
+</Window>
+    

@@ -1,0 +1,44 @@
+﻿<Window x:Class="ProcessDataArchiver.WinGui.Windows.SourceWizard.SourceWizardWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProcessDataArchiver.WinGui.Windows.SourceWizard"
+        mc:Ignorable="d"
+        Title="Kreator Nowego Projektu" Height="620" Width="500" ResizeMode="NoResize">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/GUIResources/WindowDictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid Background="#f8f8f8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        
+        
+        <Grid Grid.Row="0" Grid.Column="1">
+            <Grid Margin="20 20 20 5" >
+                <Frame  Name="ContentFrame" NavigationUIVisibility="Hidden"/>
+            </Grid>
+        </Grid>
+
+
+
+        <Grid Grid.Row="1">
+            <Border Margin="5 0 5 0" BorderBrush="DarkGray" BorderThickness="0 1 0 0">
+                <Grid>
+                <Button Name="NextButton" Style="{StaticResource StdFormNextBtn}" HorizontalAlignment="Right"
+                        Content="Dalej" IsEnabled="False" Click="NextButton_Click"/>
+                <Button Name="BackButton" Style="{StaticResource StdFormCancelBtn}" HorizontalAlignment="Right"
+                        Content="Wstecz" IsEnabled="False" Click="BackButton_Click"/>
+                </Grid>
+            </Border>
+        </Grid>
+        
+        
+    </Grid>
+</Window>

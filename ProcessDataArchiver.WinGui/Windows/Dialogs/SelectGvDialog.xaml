@@ -1,0 +1,115 @@
+﻿<Window x:Class="ProcessDataArchiver.WinGui.Windows.Dialogs.SelectGvDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProcessDataArchiver.WinGui.Windows.Dialogs"
+        xmlns:wp="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+        xmlns:convs="clr-namespace:ProcessDataArchiver.WinGui.Resources.Converters"
+        mc:Ignorable="d"
+        Title="Zmienne Globalne" Height="500" Width="500">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/GUIResources/WindowDictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <convs:BackgroundConverter x:Key="bgrConv"/>
+            <convs:TypeConverter x:Key="typeConv"/>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid Background="#f9f9f9">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="80"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="80"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Text="Nazwa" VerticalAlignment="Center" Margin="10"/>
+            
+            <wp:WatermarkTextBox Name="FilterTextBox" Grid.Column="1" VerticalAlignment="Center"
+                       Height="22"
+                                 Padding="3 1"
+                     Watermark="Wyszukaj..."
+                     TextChanged="FilterTextBox_TextChanged"/>
+
+            <TextBlock Name="DataTypeTb" Text="Typ danych:" Grid.Column="2" VerticalAlignment="Center" Margin="10"/>
+            <ComboBox Name="DataTypeCb" Grid.Column="3" VerticalAlignment="Center" Margin="0 0 10 0"
+                      Height="22"
+                      Style="{StaticResource CustomNonEditCb}"
+                      SelectedIndex="0" SelectionChanged="DataTypeCb_SelectionChanged">
+                <ComboBoxItem Name="All">Wszystkie</ComboBoxItem>
+                <ComboBoxItem Name="Analog">Analogowy</ComboBoxItem>
+                <ComboBoxItem Name="Discrete">Dyskretny</ComboBoxItem>
+            </ComboBox>
+
+        </Grid>
+
+        <ListView Grid.Row="1" Name="GvListView" Margin="10" ItemsSource="{Binding FilteredVariables}"
+                  SelectionChanged="GvListView_SelectionChanged"
+                  SelectedValue="{Binding Selected}">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="{x:Type ListViewItem}">
+                    <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                    <Setter Property="BorderBrush" Value="LightGray"/>
+                    <Setter Property="BorderThickness" Value="0 0 0 1"/>
+                    <Setter Property="Background">
+                        <Setter.Value>
+                            <Binding RelativeSource="{RelativeSource Self}"
+                                     Converter="{StaticResource bgrConv}"/>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Nazwa" Width="160">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Name="NameTextBlock" Margin="10 0 0 0"
+                                           TextAlignment="Center"
+                                           Text="{Binding Name}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn Header="Typ danych" Width="270">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Name="DataTypeTextBlock" Margin="10 0 0 0"
+                                           TextAlignment="Center"
+                                           Text="{Binding NetType,Converter={StaticResource typeConv}}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+
+
+                </GridView>
+            </ListView.View>
+            
+        </ListView>
+
+
+
+        <Button Name="SelectButton" Grid.Row="2" Style="{StaticResource StdFormNextBtn}"
+                IsEnabled="False"
+                Click="SelectButton_Click">
+            Wybierz
+        </Button>
+
+        <Button Name="CancelButton" Grid.Row="2" Style="{StaticResource StdFormCancelBtn}"
+                Click="CancelButton_Click">
+            Anuluj
+        </Button>
+
+    </Grid>
+</Window>
